@@ -1,0 +1,65 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerBehaviour : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public int Life = 10;
+    public GameObject SpawnerContainer;
+    private List<Transform> spawnPoints;
+    void Start()
+    {
+        spawnPoints = new List<Transform>();
+        GetSpawners();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if( (other.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (other.CompareTag("Antiviral") && gameObject.CompareTag("VR")) )
+        {
+            HitByCharge();
+            Destroy(other);
+            if (Life == 0)
+            {
+                Respawn();
+            }
+        }
+    }
+
+    public void HitByCharge()
+    {
+        Life--;
+    }
+
+    public void Respawn()
+    {
+        gameObject.transform.position = spawnPoints[RandomSpawn()].position;
+        ResetLifePoints();
+    }
+
+    public void GetSpawners()
+    {
+        foreach (Transform spawn in SpawnerContainer.GetComponentsInChildren<Transform>())
+        {
+            spawnPoints.Add(spawn);
+        }
+    }
+
+    public int RandomSpawn()
+    {
+        return Random.Range(1, spawnPoints.Count-1);
+    }
+
+    public void ResetLifePoints()
+    {
+        Life = 10;
+    }
+
+}

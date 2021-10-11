@@ -18,35 +18,6 @@ public class ChargeController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(gameObject.GetComponent<MeshRenderer>().material == red)
-        {
-            if (other.CompareTag("KMS"))
-            {
-                //REMOVE LIFE
-                //other.GetComponent<>().RemoveLifePoint();
-                Destroy(gameObject);
-
-
-            }
-        } else if (gameObject.GetComponent<MeshRenderer>().material == green)
-        {
-            if (other.CompareTag("VR"))
-            {
-                //REMOVE LIFE
-                //other.GetComponent<>().RemoveLifePoint();
-                Destroy(gameObject);
-            } else if (other.CompareTag("SHIELD"))
-            {
-                //REMOVE SHIELD POINT
-                //other.GetComponent<>().RemoveLifePoint();
-                Destroy(gameObject);
-            }
-        }
-        
-    }
-
     public void SetTag(string tag)
     {
         gameObject.tag = tag;
