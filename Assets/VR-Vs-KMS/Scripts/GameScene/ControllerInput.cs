@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-
 public class ControllerInput : MonoBehaviour
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
+
     public GameObject cameraRig;
+    public GameObject ChargePrefab;
+    public int force;
+
+    private bool canShoot;
+
 
     void Awake()
     {
@@ -15,12 +20,24 @@ public class ControllerInput : MonoBehaviour
     }
     void Start()
     {
-        
+        canShoot = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (SteamVR_Actions._default.GrabPinch.GetStateDown(inputSource))
+        {
+            if (canShoot)
+            {
+                canShoot = false;
+                //SHOOT
+                Shoot();
+                //IENUMERABLE
+                StartCoroutine(Reload());
+            }
+        }
+
         if (SteamVR_Actions._default.Teleport.GetStateDown(inputSource))
         {
             Debug.Log("PRESSED");
@@ -38,7 +55,6 @@ public class ControllerInput : MonoBehaviour
     {
         ControllerPointer cp = gameObject.AddComponent<ControllerPointer>();
         Debug.Log("COMPONENT ADDED");
-        //cp.UpdateColor(Color.green);
     }
 
     private void TeleportReleased()
@@ -52,5 +68,19 @@ public class ControllerInput : MonoBehaviour
         cp.DesactivatePointer();
         Destroy(cp);
         Debug.Log("COMPONENT DESTROYED");
+    }
+
+     IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(1.5f);
+        canShoot = true;
+    }
+
+    public void Shoot()
+    {
+        GameObject Charge = Instantiate(ChargePrefab, gameObject.transform.position, gameObject.transform.rotation);
+        Charge.GetComponent<ChargeController>().SetTag("Viral");
+        Charge.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * force);
+
     }
 }
