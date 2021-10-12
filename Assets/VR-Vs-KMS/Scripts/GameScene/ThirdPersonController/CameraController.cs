@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private Animator animator;
+
     public enum RotationAxis
     {
         X = 1,
@@ -26,6 +28,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -34,22 +38,23 @@ public class CameraController : MonoBehaviour
         if (axes == RotationAxis.X)
         {
             transform.Rotate(0, Input.GetAxis("Mouse X") * SensHorizontal, 0, Space.Self);
-    }
+        }
         else if (axes == RotationAxis.Y)
         {
+            if (Input.GetButton("Fire2"))
+            {
+                animator.SetBool("isTarget", true);
+            }
+            else
+            {
+                animator.SetBool("isTarget", false);
+            }
+
             rotationX -= Input.GetAxis("Mouse Y") * SensVertical;
             rotationX = Mathf.Clamp(rotationX, MinimumVerticalAngle, MaximumVerticalAngle);
             rotationY = transform.localEulerAngles.y;
             transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+        }
     }
-
-    /* if (Input.GetButtonDown("FlashLight"))
-     {
-         if (FlashLight)
-         {
-             FlashLight.enabled = !FlashLight.enabled;
-         }
-     }*/
-}
 }
 
