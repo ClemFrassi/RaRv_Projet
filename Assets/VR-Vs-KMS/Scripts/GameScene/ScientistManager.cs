@@ -11,6 +11,7 @@ public class ScientistManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("isLocalPlayer:" + photonView.IsMine);
         setTPSCameraRig();
+        activateLocalPlayer();
     }
 
     // Update is called once per frame
@@ -34,5 +35,15 @@ public class ScientistManager : MonoBehaviourPunCallbacks
         {
             Debug.LogWarning("Warning, no TPSCameraRig found\n" + ex);
         }
+    }
+
+    protected void activateLocalPlayer()
+    {
+        // enable the ThirdPersonUserControl if it is a Loacl player = UserMe
+        // disable the ThirdPersonUserControl if it is not a Loacl player = UserOther
+        GetComponent<CameraController>().enabled = photonView.IsMine;
+        GetComponent<PlayerMovements>().enabled = photonView.IsMine;
+        GetComponent<CharacterController>().enabled = photonView.IsMine;
+        GetComponent<Rigidbody>().isKinematic = !photonView.IsMine;
     }
 }
