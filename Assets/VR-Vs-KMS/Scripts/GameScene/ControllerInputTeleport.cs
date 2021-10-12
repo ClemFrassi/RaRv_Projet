@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-
-public class ControllerInput : MonoBehaviour
+public class ControllerInputTeleport : MonoBehaviour
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
+
     public GameObject cameraRig;
+
+    private bool canTeleport;
+
 
     void Awake()
     {
@@ -15,7 +18,7 @@ public class ControllerInput : MonoBehaviour
     }
     void Start()
     {
-        
+        canTeleport = true;
     }
 
     // Update is called once per frame
@@ -23,22 +26,24 @@ public class ControllerInput : MonoBehaviour
     {
         if (SteamVR_Actions._default.Teleport.GetStateDown(inputSource))
         {
-            Debug.Log("PRESSED");
-            TeleportPressed();
+                TeleportPressed();
         }
 
         if (SteamVR_Actions._default.Teleport.GetStateUp(inputSource))
         {
-            Debug.Log("Released");
-            TeleportReleased();
+            if (canTeleport)
+            {
+                TeleportReleased();
+            } else
+            {
+                Released();
+            }
         }
     }
 
     private void TeleportPressed()
     {
         ControllerPointer cp = gameObject.AddComponent<ControllerPointer>();
-        Debug.Log("COMPONENT ADDED");
-        //cp.UpdateColor(Color.green);
     }
 
     private void TeleportReleased()
@@ -48,9 +53,23 @@ public class ControllerInput : MonoBehaviour
         if (cp.CanTeleport)
         {
             cameraRig.transform.position = cp.TargetPosition;
+            canTeleport = false;
+            StartCoroutine(ResetTeleport());
         }
         cp.DesactivatePointer();
         Destroy(cp);
-        Debug.Log("COMPONENT DESTROYED");
+    }
+
+    private void Released()
+    {
+        ControllerPointer cp = gameObject.GetComponent<ControllerPointer>();
+        cp.DesactivatePointer();
+        Destroy(cp);
+    }
+
+    IEnumerator ResetTeleport()
+    {
+        yield return new WaitForSeconds(GameConfig.GetInstance().DelayTeleport);
+        canTeleport = true;
     }
 }
