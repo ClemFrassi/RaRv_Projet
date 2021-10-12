@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 475700}
   - component: {fileID: 3390482}
   - component: {fileID: 2360762}
+  - component: {fileID: 1330369611113324249}
   - component: {fileID: 6573736}
   m_Layer: 0
   m_Name: Floor_01
@@ -142,6 +143,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1330369611113324249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b8eff2874773141a9ee34662cac3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6573736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -166,6 +179,7 @@ GameObject:
   - component: {fileID: 440662}
   - component: {fileID: 3372520}
   - component: {fileID: 2399722}
+  - component: {fileID: 6805765654320216186}
   - component: {fileID: 6582718}
   m_Layer: 0
   m_Name: Floor_01
@@ -235,6 +249,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6805765654320216186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b8eff2874773141a9ee34662cac3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6582718
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -384,6 +410,7 @@ GameObject:
   - component: {fileID: 456302}
   - component: {fileID: 3327064}
   - component: {fileID: 2377122}
+  - component: {fileID: 8598200067888133151}
   - component: {fileID: 6578366}
   m_Layer: 0
   m_Name: Floor_01
@@ -453,6 +480,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8598200067888133151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b8eff2874773141a9ee34662cac3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6578366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -711,6 +750,7 @@ GameObject:
   - component: {fileID: 498990}
   - component: {fileID: 3348156}
   - component: {fileID: 2380016}
+  - component: {fileID: 7229604578475860679}
   - component: {fileID: 6500474}
   m_Layer: 0
   m_Name: Floor_01
@@ -780,6 +820,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7229604578475860679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b8eff2874773141a9ee34662cac3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6500474
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -835,6 +887,7 @@ GameObject:
   - component: {fileID: 468646}
   - component: {fileID: 3301324}
   - component: {fileID: 2342306}
+  - component: {fileID: 4241033278975271108}
   - component: {fileID: 6535652}
   m_Layer: 0
   m_Name: Floor_01
@@ -904,6 +957,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4241033278975271108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b8eff2874773141a9ee34662cac3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6535652
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1345,6 +1410,7 @@ GameObject:
   - component: {fileID: 423982}
   - component: {fileID: 3345294}
   - component: {fileID: 2398816}
+  - component: {fileID: 1680654509526733927}
   - component: {fileID: 6594698}
   m_Layer: 0
   m_Name: Floor_01
@@ -1414,6 +1480,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1680654509526733927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b8eff2874773141a9ee34662cac3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &6594698
 BoxCollider:
   m_ObjectHideFlags: 0

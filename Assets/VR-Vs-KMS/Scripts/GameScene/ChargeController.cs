@@ -5,8 +5,8 @@ using UnityEngine;
 public class ChargeController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Material green;
-    public Material red;
+    public Material viral;
+    public Material antiviral;
     void Start()
     {
         Kill();
@@ -28,10 +28,10 @@ public class ChargeController : MonoBehaviour
     {
         if(gameObject.CompareTag("Viral"))
         {
-            gameObject.GetComponent<MeshRenderer>().material = red;
+            gameObject.GetComponent<MeshRenderer>().material = viral;
         } else if(gameObject.CompareTag("Antiviral"))
         {
-            gameObject.GetComponent<MeshRenderer>().material = green;
+            gameObject.GetComponent<MeshRenderer>().material = antiviral;
         }
     }
 

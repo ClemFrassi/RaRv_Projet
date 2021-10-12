@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3549d8fc6301ddb40be21c8a7ba3818f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  green: {fileID: 2100000, guid: 9f04d84039e76704d81d8643a5419a6e, type: 2}
-  red: {fileID: 2100000, guid: c08bb5033c91e884da8226d99bb56c73, type: 2}
+  viral: {fileID: 2100000, guid: c08bb5033c91e884da8226d99bb56c73, type: 2}
+  antiviral: {fileID: 2100000, guid: 9f04d84039e76704d81d8643a5419a6e, type: 2}
 --- !u!54 &2754326449150332246
 Rigidbody:
   m_ObjectHideFlags: 0

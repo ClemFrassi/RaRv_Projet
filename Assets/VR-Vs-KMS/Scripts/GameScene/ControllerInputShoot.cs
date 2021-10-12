@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-public class ControllerInput : MonoBehaviour
+
+public class ControllerInputShoot : MonoBehaviour
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
-
-    public GameObject cameraRig;
     public GameObject ChargePrefab;
+
     public int force;
 
     private bool canShoot;
-
 
     void Awake()
     {
@@ -37,42 +36,11 @@ public class ControllerInput : MonoBehaviour
                 StartCoroutine(Reload());
             }
         }
-
-        if (SteamVR_Actions._default.Teleport.GetStateDown(inputSource))
-        {
-            Debug.Log("PRESSED");
-            TeleportPressed();
-        }
-
-        if (SteamVR_Actions._default.Teleport.GetStateUp(inputSource))
-        {
-            Debug.Log("Released");
-            TeleportReleased();
-        }
     }
 
-    private void TeleportPressed()
+    IEnumerator Reload()
     {
-        ControllerPointer cp = gameObject.AddComponent<ControllerPointer>();
-        Debug.Log("COMPONENT ADDED");
-    }
-
-    private void TeleportReleased()
-    {
-
-        ControllerPointer cp = gameObject.GetComponent<ControllerPointer>();
-        if (cp.CanTeleport)
-        {
-            cameraRig.transform.position = cp.TargetPosition;
-        }
-        cp.DesactivatePointer();
-        Destroy(cp);
-        Debug.Log("COMPONENT DESTROYED");
-    }
-
-     IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(GameConfig.GetInstance().DelayShoot);
         canShoot = true;
     }
 
