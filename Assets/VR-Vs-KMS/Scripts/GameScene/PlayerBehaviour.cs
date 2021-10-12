@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int Life = 10;
+    public int Life;
     public GameObject SpawnerContainer;
     private List<Transform> spawnPoints;
     void Start()
     {
+        Life = GameConfig.GetInstance().LifeNumber;
         spawnPoints = new List<Transform>();
         GetSpawners();
     }
@@ -59,7 +60,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ResetLifePoints()
     {
-        Life = 10;
+        Life = GameConfig.GetInstance().LifeNumber;
     }
 
 }
