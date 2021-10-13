@@ -34,7 +34,8 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     canShoot = false;
                     //SHOOT
-                    photonView.RPC("Shoot", RpcTarget.AllViaServer, hit);
+                    Vector3 direction = hit.point - transform.position;
+                    photonView.RPC("Shoot", RpcTarget.AllViaServer, direction);
                     //IENUMERABLE
                     StartCoroutine(Reload());
 
@@ -44,11 +45,11 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void Shoot(RaycastHit hit)
+    public void Shoot(Vector3 direction)
     {
         GameObject Charge = Instantiate(ChargePrefab, gameObject.transform.position, gameObject.transform.rotation);
         Charge.GetComponent<ChargeController>().SetTag("Antiviral");
-        Charge.GetComponent<Rigidbody>().velocity = (hit.point - transform.position) * force;
+        Charge.GetComponent<Rigidbody>().velocity = direction * force;
     }
 
     IEnumerator Reload()

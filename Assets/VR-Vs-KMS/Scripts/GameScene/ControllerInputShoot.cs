@@ -21,6 +21,7 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         canShoot = true;
+        this.enabled = photonView.IsMine;
     }
 
     // Update is called once per frame
