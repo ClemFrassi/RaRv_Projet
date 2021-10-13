@@ -99,7 +99,6 @@ namespace WS3
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(SteamVRLeft.transform.position);
         }
     }
 }
