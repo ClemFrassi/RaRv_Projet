@@ -44,7 +44,7 @@ public class PlayerMovements : MonoBehaviour
             verticalForce = JumpForce;
         }
 
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2") && !animator.GetBool("isWalking"))
         {
             animator.SetBool("isTarget", true);
         }
@@ -72,35 +72,52 @@ public class PlayerMovements : MonoBehaviour
 
     private void setAnimationAndSpeed()
     {
-        if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
         {
+            animator.SetBool("isMoving", true);
             animator.SetBool("isWalking", true);
+
+            if (Input.GetAxis("Vertical") != 0)
+            {
+                float verticalValue = Input.GetAxis("Vertical");
+                speed = verticalValue > 0 ? DefaultSpeed : DefaultSpeed * 0.5f;
+                animator.SetFloat("z_direction", verticalValue);
+                Debug.Log(verticalValue);
+            }
+
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+                float horizontalValue = Input.GetAxis("Horizontal");
+                speed = DefaultSpeed;
+                animator.SetFloat("x_direction", horizontalValue);
+            }
         }
         else
         {
+            animator.SetBool("isMoving", false);
             animator.SetBool("isWalking", false);
         }
 
-        if (Input.GetButton("Run"))
-        {
-            animator.SetBool("isFastRunning", true);
-            speed = RunningSpeed;
-        }
-        else
-        {
-            animator.SetBool("isFastRunning", false);
-            speed = DefaultSpeed;
-        }
+        //if (Input.GetButton("Run"))
+        //{
+        //    animator.SetBool("isFastRunning", true);
+        //    speed = RunningSpeed;
+        //}
+        //else
+        //{
+        //    animator.SetBool("isFastRunning", false);
+        //    speed = DefaultSpeed;
+        //}
 
-        if (Input.GetButton("Crouched"))
-        {
-            animator.SetBool("isCrouched", true);
-            speed = CrouchedSpeed;
-        }
-        else
-        {
-            animator.SetBool("isCrouched", false);
-            speed = DefaultSpeed;
-        }
+        //if (Input.GetButton("Crouched"))
+        //{
+        //    animator.SetBool("isCrouched", true);
+        //    speed = CrouchedSpeed;
+        //}
+        //else
+        //{
+        //    animator.SetBool("isCrouched", false);
+        //    speed = DefaultSpeed;
+        //}
     }
 }
