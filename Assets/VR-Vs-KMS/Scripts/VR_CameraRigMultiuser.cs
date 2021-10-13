@@ -19,7 +19,7 @@ namespace WS3
         // reference to SteamController
         public GameObject SteamVRLeft, SteamVRRight, SteamVRCamera;
         public GameObject UserOtherLeftHandModel, UserOtherRightHandModel;
-        private GameObject goFreeLookCameraRig;
+        public GameObject VirusOBJ;
 
         // Use this for initialization
         void Start()
@@ -27,31 +27,6 @@ namespace WS3
             //updateGoFreeLookCameraRig();
             steamVRactivation();
         }
-
-        /// <summary>
-        /// deactivate the FreeLookCameraRig since we are using the HTC version
-        /// Execute only in client side
-        /// </summary>
-        protected void updateGoFreeLookCameraRig()
-        {
-            // Client execution ONLY LOCAL
-            if (!photonView.IsMine) return;
-
-            goFreeLookCameraRig = null;
-
-            try
-            {
-                // Get the Camera to set as the follow camera
-                goFreeLookCameraRig = transform.Find("/FreeLookCameraRig").gameObject;
-                // Deactivate the FreeLookCameraRig since we are using the SteamVR camera
-                goFreeLookCameraRig.SetActive(false);
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogWarning("Warning, no goFreeLookCameraRig found\n" + ex);
-            }
-        }
-
 
         /// <summary>
         /// If we are the client who is using the HTC, activate component of SteamVR in the client using it
@@ -77,6 +52,8 @@ namespace WS3
 
             // Camera activation if UserMe, deactivation if UserOther
             SteamVRCamera.GetComponent<Camera>().enabled = photonView.IsMine;
+            VirusOBJ.SetActive(!photonView.IsMine);
+            
 
             if (!photonView.IsMine)
             {
