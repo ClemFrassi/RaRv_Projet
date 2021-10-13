@@ -28,6 +28,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinRandomRoom(); //First tries to koin an existing room
             Debug.Log("Joining a room");
+            joinGameButton.SetActive(false);
+            cancelButton.SetActive(true);
         }
         else
         {

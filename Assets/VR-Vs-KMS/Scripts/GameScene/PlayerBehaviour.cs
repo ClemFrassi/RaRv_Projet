@@ -12,7 +12,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Life = GameConfig.GetInstance().LifeNumber;
         spawnPoints = new List<Transform>();
+        SpawnerContainer = GameObject.Find("SpawnAreaContainer");
         GetSpawners();
+        Respawn();
     }
 
     // Update is called once per frame
