@@ -17,6 +17,7 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
     {
         cam = Camera.main;
         canShoot = true;
+        this.enabled = photonView.IsMine;
     }
 
     // Update is called once per frame
