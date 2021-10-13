@@ -77,10 +77,27 @@ public class PlayerMovements : MonoBehaviour
             animator.SetBool("isMoving", true);
             animator.SetBool("isWalking", true);
 
+            if (Input.GetButton("Run"))
+            {
+                animator.SetBool("isRunning", true);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
+
             if (Input.GetAxis("Vertical") != 0)
             {
                 float verticalValue = Input.GetAxis("Vertical");
-                speed = verticalValue > 0 ? DefaultSpeed : DefaultSpeed * 0.5f;
+                if (animator.GetBool("isRunning") && verticalValue > 0)
+                {
+                    speed = DefaultSpeed * 1.8f;
+                }
+                else
+                {
+                    animator.SetBool("isRunning", false);
+                    speed = verticalValue > 0 ? DefaultSpeed : DefaultSpeed * 0.5f;
+                }
                 animator.SetFloat("z_direction", verticalValue);
                 Debug.Log(verticalValue);
             }
