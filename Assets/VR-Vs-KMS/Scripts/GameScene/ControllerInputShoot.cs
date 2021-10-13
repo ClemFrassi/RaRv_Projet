@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class ControllerInputShoot : MonoBehaviour
+public class ControllerInputShoot : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
@@ -31,7 +32,7 @@ public class ControllerInputShoot : MonoBehaviour
             {
                 canShoot = false;
                 //SHOOT
-                Shoot();
+                photonView.RPC("Shoot", RpcTarget.AllViaServer);
                 //IENUMERABLE
                 StartCoroutine(Reload());
             }
@@ -44,11 +45,15 @@ public class ControllerInputShoot : MonoBehaviour
         canShoot = true;
     }
 
-    public void Shoot()
-    {
+    [PunRPC]
+    public void Shoot(PhotonMessageInfo info)
+    {   // Tips for Photon lag compensation. Il faut compenser le temps de lag pour l'envoi du message.
+        // donc décaler la position de départ de la balle dans la direction
+        float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
+        Debug.LogFormat("PunRPC: ThrowBall lag:{0}", lag);
+
         GameObject Charge = Instantiate(ChargePrefab, gameObject.transform.position, gameObject.transform.rotation);
         Charge.GetComponent<ChargeController>().SetTag("Viral");
         Charge.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * force);
-
     }
 }
