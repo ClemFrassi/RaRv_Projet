@@ -116,9 +116,9 @@ MonoBehaviour:
   SteamVRLeft: {fileID: 9103865264854806914}
   SteamVRRight: {fileID: 9103865264855038884}
   SteamVRCamera: {fileID: 9103147830600704296}
-  UserOtherLeftHandModel: {fileID: 919132149155446097, guid: 152b04116f1d78b458866241b71aff43,
+  UserOtherLeftHandModel: {fileID: 100060, guid: 65d8eda911e0ba548a3674f65c43308b,
     type: 3}
-  UserOtherRightHandModel: {fileID: 919132149155446097, guid: 152b04116f1d78b458866241b71aff43,
+  UserOtherRightHandModel: {fileID: 100060, guid: 641e9d2f5c6b4cb438161abef3be8300,
     type: 3}
 --- !u!1001 &3701838906521648212
 PrefabInstance:
