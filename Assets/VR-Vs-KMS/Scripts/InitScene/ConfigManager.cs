@@ -19,7 +19,6 @@ public class ConfigManager : MonoBehaviour
     {
         VirusShotMaterial.color = GameConfig.GetInstance().ColorShotVirus;
         KMSShotMaterial.color = GameConfig.GetInstance().ColorShotKMS;
-        SceneManager.LoadScene("GameScene");
     }
 
     // Update is called once per frame

@@ -59,7 +59,7 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
         GameObject Charge = Instantiate(ChargePrefab, gameObject.transform.position, gameObject.transform.rotation);
         Charge.GetComponent<ChargeController>().SetTag("Viral");
-        Charge.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * force) * lag;
+        Charge.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * force);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

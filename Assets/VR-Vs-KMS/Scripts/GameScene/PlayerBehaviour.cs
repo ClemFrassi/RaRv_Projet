@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 {
     // Start is called before the first frame update
-    public int Life;
+    private int Life;
     public GameObject SpawnerContainer;
     private List<Transform> spawnPoints;
     void Start()
