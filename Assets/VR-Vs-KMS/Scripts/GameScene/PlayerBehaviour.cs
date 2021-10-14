@@ -9,13 +9,13 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     private int Life;
     public GameObject SpawnerContainer;
     private List<Transform> spawnPoints;
+    public GameObject Scientific;
     void Start()
     {
         Life = GameConfig.GetInstance().LifeNumber;
         spawnPoints = new List<Transform>();
         SpawnerContainer = GameObject.Find("SpawnAreaContainer");
         GetSpawners();
-        Respawn();
     }
 
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Respawn()
     {
-        gameObject.transform.position = spawnPoints[RandomSpawn()].position;
+        Scientific.transform.position = spawnPoints[RandomSpawn()].position;
         ResetLifePoints();
     }
 
