@@ -28,12 +28,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     //Function for loading into the multiplayer scene
     private void StartGame()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Starting Game");
-            PhotonNetwork.LoadLevel(initSceneName);
-        }
-        Debug.Log("Starting Game outta master");
+        PhotonNetwork.LoadLevel(initSceneName);
     }
     // Start is called before the first frame update
     void Start()
