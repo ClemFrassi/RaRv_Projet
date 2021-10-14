@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChargePrefab: {fileID: 2754326449150332243, guid: 23231b6a88ac8c14f84a7c884a669a85,
     type: 3}
-  force: 10
+  force: 5
 --- !u!114 &8695748382545598934
 MonoBehaviour:
   m_ObjectHideFlags: 0
