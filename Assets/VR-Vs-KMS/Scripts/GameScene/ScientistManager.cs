@@ -45,5 +45,6 @@ public class ScientistManager : MonoBehaviourPunCallbacks
         GetComponent<PlayerMovements>().enabled = photonView.IsMine;
         GetComponent<CharacterController>().enabled = photonView.IsMine;
         GetComponent<Rigidbody>().isKinematic = !photonView.IsMine;
+        gameObject.layer = photonView.IsMine ? 2 : 0;
     }
 }
