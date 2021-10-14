@@ -17,7 +17,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //Callback function for when the first connection is established
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = false;
         joinGameButton.SetActive(true);
         cancelButton.SetActive(false);
     }

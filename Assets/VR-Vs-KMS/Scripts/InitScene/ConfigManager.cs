@@ -12,6 +12,7 @@ public class ConfigManager : MonoBehaviour
     void Awake()
     {
         GameConfig.GetInstance().LoadConfig();
+        Debug.Log("AwakeDone");
     }
 
     void Start()

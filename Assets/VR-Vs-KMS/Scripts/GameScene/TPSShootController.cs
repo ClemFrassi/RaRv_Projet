@@ -45,11 +45,12 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void Shoot(Vector3 direction)
+    void Shoot(Vector3 direction, PhotonMessageInfo info)
     {
+        float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
         GameObject Charge = Instantiate(ChargePrefab, gameObject.transform.position, gameObject.transform.rotation);
         Charge.GetComponent<ChargeController>().SetTag("Antiviral");
-        Charge.GetComponent<Rigidbody>().velocity = direction * force;
+        Charge.GetComponent<Rigidbody>().velocity = direction * force * lag;
     }
 
     IEnumerator Reload()
