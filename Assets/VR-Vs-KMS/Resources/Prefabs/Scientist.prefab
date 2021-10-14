@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 852325019868318484}
   m_Layer: 2
   m_Name: Scientist
-  m_TagString: Untagged
+  m_TagString: KMS
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
