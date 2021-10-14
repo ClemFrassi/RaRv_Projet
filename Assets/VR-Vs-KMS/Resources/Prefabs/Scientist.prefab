@@ -731,7 +731,7 @@ MeshCollider:
   m_GameObject: {fileID: 3037858360254654340}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -743,12 +743,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3037858360254654340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e10a06f1b14e2684caf6a95e4fbf3560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 0
   SpawnerContainer: {fileID: 0}
 --- !u!1 &3217023248838105135
 GameObject:
@@ -1141,6 +1140,8 @@ GameObject:
   - component: {fileID: 8039815097073227223}
   - component: {fileID: 8324050551218617776}
   - component: {fileID: 852325019868318484}
+  - component: {fileID: 1195484249879873776}
+  - component: {fileID: 3450094599023847325}
   m_Layer: 2
   m_Name: Scientist
   m_TagString: Untagged
@@ -1258,6 +1259,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 2849584826591296218}
   - {fileID: 8039815097073227223}
+  - {fileID: 3450094599023847325}
+  - {fileID: 3037858360254654343}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1351,6 +1354,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &1195484249879873776
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067698655415812318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &3450094599023847325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5067698655415812318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10a06f1b14e2684caf6a95e4fbf3560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnerContainer: {fileID: 0}
 --- !u!1 &5227094468533731273
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,15 +2844,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3694fadb841d6f64fb47ec79edded401, type: 3}
---- !u!4 &5369549847233769480 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4791538854900536, guid: 3694fadb841d6f64fb47ec79edded401,
-    type: 3}
-  m_PrefabInstance: {fileID: 5374338903056614192}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5373648616820477656 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1816600342302184, guid: 3694fadb841d6f64fb47ec79edded401,
+    type: 3}
+  m_PrefabInstance: {fileID: 5374338903056614192}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5369549847233769480 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4791538854900536, guid: 3694fadb841d6f64fb47ec79edded401,
     type: 3}
   m_PrefabInstance: {fileID: 5374338903056614192}
   m_PrefabAsset: {fileID: 0}

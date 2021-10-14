@@ -26,8 +26,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Clem hit!");
         if( (other.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (other.CompareTag("Antiviral") && gameObject.CompareTag("VR")) )
         {
+            Debug.Log("Clem in condition");
             HitByCharge();
             Destroy(other);
             if (Life == 0)
@@ -39,6 +41,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void HitByCharge()
     {
+        Debug.Log("clem hit by charge!");
         Life--;
     }
 
