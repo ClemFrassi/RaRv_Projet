@@ -26,7 +26,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Clem hit! TRIGGER");
         if( (other.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (other.CompareTag("Antiviral") && gameObject.CompareTag("KMS")) )
         {
             Debug.Log("Clem in condition TRIGGER");
@@ -41,7 +40,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Clem hit!");
         if ((collision.gameObject.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (collision.gameObject.CompareTag("Antiviral") && gameObject.CompareTag("VR")))
         {
             Debug.Log("Clem in condition");
