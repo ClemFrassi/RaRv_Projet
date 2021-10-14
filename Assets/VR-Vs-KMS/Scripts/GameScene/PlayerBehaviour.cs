@@ -26,12 +26,16 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void HitByCharge()
     {
-        Debug.Log("clem hit by charge!");
-        Life--;
-        if (Life == 0)
+        if(photonView.IsMine)
         {
-            Respawn();
+            Debug.Log("clem hit by charge!");
+            Life--;
+            if (Life == 0)
+            {
+                Respawn();
+            }
         }
+        
     }
 
     public void Respawn()
