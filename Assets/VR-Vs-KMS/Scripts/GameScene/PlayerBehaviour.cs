@@ -24,12 +24,12 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-    /*private void OnCollisionEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Clem hit!");
+        Debug.Log("Clem hit! TRIGGER");
         if( (other.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (other.CompareTag("Antiviral") && gameObject.CompareTag("VR")) )
         {
-            Debug.Log("Clem in condition");
+            Debug.Log("Clem in condition TRIGGER");
             HitByCharge();
             Destroy(other);
             if (Life == 0)
@@ -37,7 +37,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 Respawn();
             }
         }
-    }*/
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
