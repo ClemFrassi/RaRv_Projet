@@ -963,6 +963,7 @@ MonoBehaviour:
   ChargePrefab: {fileID: 2754326449150332243, guid: 23231b6a88ac8c14f84a7c884a669a85,
     type: 3}
   force: 50
+  canShoot: 0
 --- !u!114 &2637488737334759501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,6 +1032,8 @@ MonoBehaviour:
   Scientific: {fileID: 9103865264855050452}
   Overlay: {fileID: 8987105358356726868}
   Shield: {fileID: 3947182730459223439}
+  KMScanShoot: {fileID: 0}
+  VRcanShoot: {fileID: 846539978}
 --- !u!1001 &9103865264854914304
 PrefabInstance:
   m_ObjectHideFlags: 0

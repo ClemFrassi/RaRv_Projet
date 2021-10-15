@@ -12,7 +12,7 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     public int force;
 
-    private bool canShoot;
+    public bool canShoot;
 
     void Awake()
     {

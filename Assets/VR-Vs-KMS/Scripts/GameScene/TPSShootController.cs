@@ -8,7 +8,7 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ChargePrefab;
     public int force = 50;
 
-    private bool canShoot;
+    public bool canShoot;
 
     // Start is called before the first frame update
     void Start()

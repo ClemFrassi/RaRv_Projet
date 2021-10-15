@@ -13,6 +13,8 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public VR_Overlay Overlay;
     private Animator animator;
     public ShieldBehaviour Shield;
+    public TPSShootController KMScanShoot;
+    public ControllerInputShoot VRcanShoot;
 
     void Start()
     {
@@ -40,8 +42,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             Hit();
             if (Life <= 0)
             {
-                if(gameObject.CompareTag("KMS")) { 
-                    GetComponentInParent<Animator>().SetTrigger("triggerDead"); 
+                if(gameObject.CompareTag("KMS")) {
+                    Scientific.GetComponent<PlayerMovements>().enabled = false;
+                    GetComponentInParent<Animator>().SetTrigger("triggerDead");
+                    StartCoroutine(WaitForAnim());
                 }
                 
                 // Camera.main.GetComponent<Animator>().SetBool("isDead", true);
@@ -55,6 +59,14 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(photonView.IsMine)
         {
+            if(gameObject.CompareTag("VR"))
+            {
+                VRcanShoot.canShoot = true;
+            } else if (gameObject.CompareTag("KMS"))
+            {
+                KMScanShoot.canShoot = true;
+            }
+
             Scientific.SetActive(false);
             Scientific.transform.position = spawnPoints[RandomSpawn()].position;
             ResetLifePoints();
@@ -124,5 +136,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public void ResetShield()
     {
         Shield.Repair();
+    }
+
+    IEnumerator WaitForAnim()
+    {
+        yield return new WaitForSeconds(5);
     }
 }
