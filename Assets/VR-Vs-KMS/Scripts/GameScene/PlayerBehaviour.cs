@@ -10,7 +10,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject SpawnerContainer;
     private List<Transform> spawnPoints;
     public GameObject Scientific;
-
+    public VR_Overlay Overlay;
     private Animator animator;
 
     void Start()
@@ -36,7 +36,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(photonView.IsMine)
         {
-            Life--;
+            Hit();
             if (Life <= 0)
             {
                 GetComponentInParent<Animator>().SetTrigger("triggerDead");
@@ -75,6 +75,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public void ResetLifePoints()
     {
         Life = GameConfig.GetInstance().LifeNumber;
+        Overlay.ResetLife();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -97,5 +98,12 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 animator.SetFloat("z_direction", (float)stream.ReceiveNext());
             }
         }
+    }
+
+    public void Hit()
+    {
+        Debug.Log("MODIFY");
+        Life--;
+        Overlay.SetHealthValue(Life);
     }
 }

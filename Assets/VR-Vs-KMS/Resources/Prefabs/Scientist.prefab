@@ -754,6 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnerContainer: {fileID: 0}
   Scientific: {fileID: 5067698655415812318}
+  Overlay: {fileID: 0}
 --- !u!64 &7565182875970156321
 MeshCollider:
   m_ObjectHideFlags: 0

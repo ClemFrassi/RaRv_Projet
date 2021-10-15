@@ -29,6 +29,10 @@ public class ChargeBehaviour : MonoBehaviour
             Debug.Log("  It is a player !!");
             Debug.Log(um);
             um.HitByCharge();
+        } else if (hit.GetComponent<ShieldBehaviour>() && hit.tag == "SHIELD" && gameObject.tag == "Antiviral")
+        {
+            Debug.Log("It's a shield");
+            hit.GetComponent<ShieldBehaviour>().Hit();
         }
         Destroy(gameObject);
     }
