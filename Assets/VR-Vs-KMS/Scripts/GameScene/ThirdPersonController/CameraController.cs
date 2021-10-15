@@ -16,8 +16,6 @@ public class CameraController : MonoBehaviour
     public float SensHorizontal = 10.0f;
     public float SensVertical = 10.0f;
 
-    public Light FlashLight;
-
     public float MinimumVerticalAngle = -75.0f;
     public float MaximumVerticalAngle = 55.0f;
 
