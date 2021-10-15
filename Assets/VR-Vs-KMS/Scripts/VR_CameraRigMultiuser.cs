@@ -53,7 +53,7 @@ namespace WS3
             // Camera activation if UserMe, deactivation if UserOther
             SteamVRCamera.GetComponent<Camera>().enabled = photonView.IsMine;
             VirusOBJ.SetActive(!photonView.IsMine);
-            SteamVRCamera.GetComponent<AudioListener>().enabled = !photonView.IsMine;
+            SteamVRCamera.GetComponent<AudioListener>().enabled = photonView.IsMine;
 
 
             if (!photonView.IsMine)
