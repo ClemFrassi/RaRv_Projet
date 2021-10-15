@@ -598,6 +598,7 @@ GameObject:
   - component: {fileID: 1739762335118830547}
   - component: {fileID: 385018510756724105}
   - component: {fileID: 7565182875970156321}
+  - component: {fileID: 1147196438854442551}
   m_Layer: 2
   m_Name: Ch11
   m_TagString: KMS
@@ -762,11 +763,25 @@ MeshCollider:
   m_GameObject: {fileID: 3037858360254654340}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2834905523085415057, guid: 8c157b1a64bdc3044b62209329e3cd5d, type: 3}
+--- !u!136 &1147196438854442551
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037858360254654340}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.45
+  m_Height: 1.8760314
+  m_Direction: 1
+  m_Center: {x: 0.00043257466, y: 0.8084464, z: 0.034040406}
 --- !u!1 &3217023248838105135
 GameObject:
   m_ObjectHideFlags: 0
