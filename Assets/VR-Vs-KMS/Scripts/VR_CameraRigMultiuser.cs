@@ -54,6 +54,8 @@ namespace WS3
             SteamVRCamera.GetComponent<Camera>().enabled = photonView.IsMine;
             VirusOBJ.SetActive(!photonView.IsMine);
             SteamVRCamera.GetComponent<AudioListener>().enabled = photonView.IsMine;
+            SteamVRLeft.GetComponentInChildren<Canvas>().gameObject.SetActive(photonView.IsMine);
+
 
 
             if (!photonView.IsMine)
