@@ -32,6 +32,8 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             Life--;
             if (Life == 0)
             {
+                GetComponentInParent<Animator>().SetBool("isDead", true);
+                Camera.main.GetComponent<Animator>().SetBool("isDead", true);
                 Respawn();
             }
         }

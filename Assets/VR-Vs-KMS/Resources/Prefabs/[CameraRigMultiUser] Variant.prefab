@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerContainer: {fileID: 0}
+  Scientific: {fileID: 0}
 --- !u!114 &2033233746773082608
 MonoBehaviour:
   m_ObjectHideFlags: 0
