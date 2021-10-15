@@ -78,7 +78,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public void ResetLifePoints()
     {
         Life = GameConfig.GetInstance().LifeNumber;
-        Overlay.ResetLife();
+        if(gameObject.tag == "VR")
+        {
+            Overlay.ResetLife();
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -107,6 +110,9 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         Debug.Log("MODIFY");
         Life--;
-        Overlay.SetHealthValue(Life);
+        if (gameObject.tag == "VR")
+        {
+            Overlay.SetHealthValue(Life);
+        }
     }
 }
