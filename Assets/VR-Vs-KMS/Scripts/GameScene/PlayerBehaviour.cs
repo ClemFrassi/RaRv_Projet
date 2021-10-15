@@ -12,6 +12,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject Scientific;
     public VR_Overlay Overlay;
     private Animator animator;
+    public ShieldBehaviour Shield;
 
     void Start()
     {
@@ -57,6 +58,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             Scientific.SetActive(false);
             Scientific.transform.position = spawnPoints[RandomSpawn()].position;
             ResetLifePoints();
+            if (gameObject.CompareTag("VR"))
+            {
+                ResetShield();
+            }
             Scientific.SetActive(true);
         }
         
@@ -114,5 +119,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         {
             Overlay.SetHealthValue(Life);
         }
+    }
+
+    public void ResetShield()
+    {
+        Shield.Repair();
     }
 }

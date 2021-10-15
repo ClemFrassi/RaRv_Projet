@@ -43,7 +43,7 @@ public class ShieldBehaviour : MonoBehaviour
         transform.localScale = new Vector3(0, 0, 0);
     }
 
-    public void Respawn()
+    public void Repair()
     {
         transform.localScale = new Vector3(scaleX , scaleY, scaleZ);
     }

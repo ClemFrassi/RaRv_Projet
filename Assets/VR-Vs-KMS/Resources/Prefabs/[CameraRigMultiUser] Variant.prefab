@@ -1030,6 +1030,7 @@ MonoBehaviour:
   SpawnerContainer: {fileID: 0}
   Scientific: {fileID: 9103865264855050452}
   Overlay: {fileID: 8987105358356726868}
+  Shield: {fileID: 3947182730459223439}
 --- !u!1001 &9103865264854914304
 PrefabInstance:
   m_ObjectHideFlags: 0
