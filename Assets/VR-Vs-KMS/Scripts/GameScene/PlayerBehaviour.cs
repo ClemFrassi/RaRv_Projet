@@ -45,11 +45,11 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 if(gameObject.CompareTag("KMS")) {
                     Scientific.GetComponent<PlayerMovements>().enabled = false;
                     GetComponentInParent<Animator>().SetTrigger("triggerDead");
+                    Debug.Log("CAN'T MOVE + TRIGGER ANIM");
                     StartCoroutine(WaitForAnim());
                     Scientific.GetComponent<PlayerMovements>().enabled = true;
                 }
-                
-                // Camera.main.GetComponent<Animator>().SetBool("isDead", true);
+               
                 Respawn();
             }
         }
@@ -141,6 +141,8 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator WaitForAnim()
     {
+        Debug.Log("BEGIN PAUSE");
         yield return new WaitForSeconds(5);
+        Debug.Log("END PAUSE");
     }
 }
