@@ -27,6 +27,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void HitByCharge()
     {
+        Debug.Log("HIIIIIIIIIIIT");
         if(photonView.IsMine)
         {
             Debug.Log("clem hit by charge!");
