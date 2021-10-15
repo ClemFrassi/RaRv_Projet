@@ -46,6 +46,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                     Scientific.GetComponent<PlayerMovements>().enabled = false;
                     GetComponentInParent<Animator>().SetTrigger("triggerDead");
                     StartCoroutine(WaitForAnim());
+                    Scientific.GetComponent<PlayerMovements>().enabled = true;
                 }
                 
                 // Camera.main.GetComponent<Animator>().SetBool("isDead", true);
