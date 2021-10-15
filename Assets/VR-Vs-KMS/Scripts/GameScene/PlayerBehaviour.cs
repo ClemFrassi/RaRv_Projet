@@ -44,13 +44,15 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if(gameObject.CompareTag("KMS")) {
                     Scientific.GetComponent<PlayerMovements>().enabled = false;
-                    GetComponentInParent<Animator>().SetTrigger("triggerDead");
                     Debug.Log("CAN'T MOVE + TRIGGER ANIM");
                     StartCoroutine(WaitForAnim());
                     Scientific.GetComponent<PlayerMovements>().enabled = true;
+                } else if (gameObject.CompareTag("VR"))
+                {
+                    Respawn();
                 }
                
-                Respawn();
+                
             }
         }
         
@@ -141,8 +143,9 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator WaitForAnim()
     {
-        Debug.Log("BEGIN PAUSE");
+        GetComponentInParent<Animator>().SetTrigger("triggerDead");
         yield return new WaitForSeconds(5);
         Debug.Log("END PAUSE");
+        Respawn();
     }
 }
