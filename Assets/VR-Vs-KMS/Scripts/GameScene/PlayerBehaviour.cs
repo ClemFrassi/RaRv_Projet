@@ -16,6 +16,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         spawnPoints = new List<Transform>();
         SpawnerContainer = GameObject.Find("SpawnAreaContainer");
         GetSpawners();
+        Respawn();
     }
 
     // Update is called once per frame
@@ -40,8 +41,12 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Respawn()
     {
-        Scientific.transform.position = spawnPoints[RandomSpawn()].position;
-        ResetLifePoints();
+        if(photonView.IsMine)
+        {
+            Scientific.transform.position = spawnPoints[RandomSpawn()].position;
+            ResetLifePoints();
+        }
+        
     }
 
     public void GetSpawners()
