@@ -1307,16 +1307,16 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: isTarget
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isMoving
   - Type: 3
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: x_direction
   - Type: 3
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: z_direction
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isRunning
   - Type: 9
     SynchronizeType: 0
