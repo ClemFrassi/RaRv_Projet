@@ -67,6 +67,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public void ResetLifePoints()
     {
         Life = GameConfig.GetInstance().LifeNumber;
+        Overlay.ResetLife();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -83,6 +84,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit()
     {
+        Debug.Log("MODIFY");
         Life--;
         Overlay.SetHealthValue(Life);
     }

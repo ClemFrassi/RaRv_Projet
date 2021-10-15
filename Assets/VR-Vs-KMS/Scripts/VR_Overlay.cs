@@ -7,6 +7,7 @@ public class VR_Overlay : MonoBehaviour
 {
     // Start is called before the first frame update
     public Image HealthValue;
+    public Text HealthText;
     void Start()
     {
         
@@ -20,7 +21,16 @@ public class VR_Overlay : MonoBehaviour
 
     public void SetHealthValue(int value)
     {
-        HealthValue.fillAmount = (value * 100) / GameConfig.GetInstance().LifeNumber;
+        float val = value;
+        float total = GameConfig.GetInstance().LifeNumber;
+        HealthValue.fillAmount = val / total;
+        HealthText.text = value + "/" + GameConfig.GetInstance().LifeNumber;
 
+    }
+
+    public void ResetLife()
+    {
+        HealthValue.fillAmount = 1;
+        HealthText.text = GameConfig.GetInstance().LifeNumber + "/" + GameConfig.GetInstance().LifeNumber;
     }
 }
