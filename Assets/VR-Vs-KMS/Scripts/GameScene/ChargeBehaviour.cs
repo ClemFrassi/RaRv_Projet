@@ -24,7 +24,7 @@ public class ChargeBehaviour : MonoBehaviour
 
         
         PlayerBehaviour um = hit.GetComponent<PlayerBehaviour>();
-        if (um != null && ((hit.tag == "KMS" && gameObject.tag == "Viral") || (hit.tag == "KMS" && gameObject.tag == "Antiviral")))
+        if (um != null && ((hit.tag == "KMS" && gameObject.tag == "Viral") || (hit.tag == "VR" && gameObject.tag == "Antiviral")))
         {
             Debug.Log("  It is a player !!");
             Debug.Log(um);
