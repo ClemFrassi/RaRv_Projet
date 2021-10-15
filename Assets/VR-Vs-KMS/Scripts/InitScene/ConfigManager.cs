@@ -12,13 +12,13 @@ public class ConfigManager : MonoBehaviour
     void Awake()
     {
         GameConfig.GetInstance().LoadConfig();
+        Debug.Log("AwakeDone");
     }
 
     void Start()
     {
         VirusShotMaterial.color = GameConfig.GetInstance().ColorShotVirus;
         KMSShotMaterial.color = GameConfig.GetInstance().ColorShotKMS;
-        SceneManager.LoadScene("GameScene");
     }
 
     // Update is called once per frame

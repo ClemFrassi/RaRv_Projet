@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Viral
   - Antiviral
+  - KMS
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private string initSceneName; //Name of the multiplay scene
+    private string gameSceneName; //Name of the multiplay scene
 
     public override void OnEnable()
     {
@@ -31,7 +31,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Starting Game");
-            PhotonNetwork.LoadLevel(initSceneName);
+            PhotonNetwork.LoadLevel(gameSceneName);
         }
     }
     // Start is called before the first frame update

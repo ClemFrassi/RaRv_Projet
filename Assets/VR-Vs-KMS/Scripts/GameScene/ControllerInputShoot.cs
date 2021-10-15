@@ -21,6 +21,7 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         canShoot = true;
+        this.enabled = photonView.IsMine;
     }
 
     // Update is called once per frame
@@ -30,7 +31,9 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (canShoot)
             {
+                Debug.Log("Shooting + " + canShoot);
                 canShoot = false;
+                Debug.Log("canShoot + " + canShoot);
                 //SHOOT
                 photonView.RPC("Shoot", RpcTarget.AllViaServer);
                 //IENUMERABLE
@@ -41,8 +44,10 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator Reload()
     {
+        Debug.Log("Clément is Reloading for " + GameConfig.GetInstance().DelayShoot);
         yield return new WaitForSeconds(GameConfig.GetInstance().DelayShoot);
         canShoot = true;
+        Debug.Log("canShoot + " + canShoot);
     }
 
     [PunRPC]

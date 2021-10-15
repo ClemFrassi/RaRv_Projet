@@ -43,6 +43,7 @@ public class GameConfig
     {
         string file = TextReader.LoadResourceTextfileFromStreamingAsset(/*"../Assets/StreamingAssets/" + */FileName);
         GameConfig.GetInstance().UpdateValuesFromJSON(file);
+        Debug.Log("ConfigLoaded");
         Debug.Log(file);
     }
 }

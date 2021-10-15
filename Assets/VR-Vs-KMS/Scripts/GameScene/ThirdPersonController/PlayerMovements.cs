@@ -99,7 +99,6 @@ public class PlayerMovements : MonoBehaviour
                     speed = verticalValue > 0 ? DefaultSpeed : DefaultSpeed * 0.5f;
                 }
                 animator.SetFloat("z_direction", verticalValue);
-                Debug.Log(verticalValue);
             }
 
             if (Input.GetAxis("Horizontal") != 0)
@@ -114,27 +113,5 @@ public class PlayerMovements : MonoBehaviour
             animator.SetBool("isMoving", false);
             animator.SetBool("isWalking", false);
         }
-
-        //if (Input.GetButton("Run"))
-        //{
-        //    animator.SetBool("isFastRunning", true);
-        //    speed = RunningSpeed;
-        //}
-        //else
-        //{
-        //    animator.SetBool("isFastRunning", false);
-        //    speed = DefaultSpeed;
-        //}
-
-        //if (Input.GetButton("Crouched"))
-        //{
-        //    animator.SetBool("isCrouched", true);
-        //    speed = CrouchedSpeed;
-        //}
-        //else
-        //{
-        //    animator.SetBool("isCrouched", false);
-        //    speed = DefaultSpeed;
-        //}
     }
 }

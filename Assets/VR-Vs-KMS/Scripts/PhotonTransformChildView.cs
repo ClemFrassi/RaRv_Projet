@@ -59,7 +59,6 @@ namespace WS3
         {
             if (stream.IsWriting)
             {
-                Debug.Log("Writing " + SynchronizePosition + " " + SynchronizeRotation);
                 if (this.SynchronizePosition)
                 {
                     for (int i = 0; i < SynchronizedChildTransform.Count; i++)
