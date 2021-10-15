@@ -1327,9 +1327,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: isRunning
-  - Type: 4
-    SynchronizeType: 1
-    Name: isDead
+  - Type: 9
+    SynchronizeType: 0
+    Name: triggerDead
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
