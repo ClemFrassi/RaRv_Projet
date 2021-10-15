@@ -10,6 +10,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject SpawnerContainer;
     private List<Transform> spawnPoints;
     public GameObject Scientific;
+    public VR_Overlay Overlay;
     void Start()
     {
         Life = GameConfig.GetInstance().LifeNumber;
@@ -29,7 +30,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(photonView.IsMine)
         {
-            Life--;
+            Hit();
             if (Life <= 0)
             {
                 Respawn();
@@ -78,5 +79,11 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         {
             Life = (int)stream.ReceiveNext();
         }
+    }
+
+    public void Hit()
+    {
+        Life--;
+        Overlay.SetHealthValue(Life);
     }
 }
