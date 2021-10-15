@@ -39,7 +39,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             Hit();
             if (Life <= 0)
             {
-                GetComponentInParent<Animator>().SetTrigger("triggerDead");
+                if(gameObject.CompareTag("KMS")) { 
+                    GetComponentInParent<Animator>().SetTrigger("triggerDead"); 
+                }
+                
                 // Camera.main.GetComponent<Animator>().SetBool("isDead", true);
                 Respawn();
             }

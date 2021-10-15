@@ -25,6 +25,7 @@ public class ShieldBehaviour : MonoBehaviour
 
     public void Hit()
     {
+        Debug.Log("HIT");
         if (count >= 5)
         {
             count = 0;
@@ -49,6 +50,8 @@ public class ShieldBehaviour : MonoBehaviour
 
     private void ReduceShield()
     {
+        Debug.Log("REDUCE");
         transform.localScale = new Vector3(scaleX - count * 0.1f, scaleY, scaleZ - count * 0.1f);
+        Debug.Log("REDUCED");
     }
 }

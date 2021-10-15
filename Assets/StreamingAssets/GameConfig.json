@@ -1,7 +1,7 @@
 {
   "LifeNumber": 10,
   "DelayShoot": 0.3,
-  "DelayTeleport": 5,
+  "DelayTeleport": 2,
   "ColorShotVirus":
   {
     "r": 0.9921568,
