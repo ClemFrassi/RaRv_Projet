@@ -16,6 +16,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         spawnPoints = new List<Transform>();
         SpawnerContainer = GameObject.Find("SpawnAreaContainer");
         GetSpawners();
+        Respawn();
     }
 
     // Update is called once per frame
@@ -28,9 +29,8 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(photonView.IsMine)
         {
-            Debug.Log("clem hit by charge!");
             Life--;
-            if (Life == 0)
+            if (Life <= 0)
             {
                 Respawn();
             }
@@ -40,8 +40,14 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Respawn()
     {
-        Scientific.transform.position = spawnPoints[RandomSpawn()].position;
-        ResetLifePoints();
+        if(photonView.IsMine)
+        {
+            Scientific.SetActive(false);
+            Scientific.transform.position = spawnPoints[RandomSpawn()].position;
+            ResetLifePoints();
+            Scientific.SetActive(true);
+        }
+        
     }
 
     public void GetSpawners()
