@@ -11,8 +11,14 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     private List<Transform> spawnPoints;
     public GameObject Scientific;
     public VR_Overlay Overlay;
+    private Animator animator;
+
     void Start()
     {
+        if(gameObject.tag == "KMS")
+        {
+            animator = GetComponentInParent<Animator>();
+        }
         Life = GameConfig.GetInstance().LifeNumber;
         spawnPoints = new List<Transform>();
         SpawnerContainer = GameObject.Find("SpawnAreaContainer");
@@ -33,6 +39,8 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             Hit();
             if (Life <= 0)
             {
+                GetComponentInParent<Animator>().SetTrigger("triggerDead");
+                // Camera.main.GetComponent<Animator>().SetBool("isDead", true);
                 Respawn();
             }
         }
@@ -75,10 +83,20 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(Life);
+            if (gameObject.tag == "KMS")
+            {
+                stream.SendNext(animator.GetFloat("x_direction"));
+                stream.SendNext(animator.GetFloat("z_direction"));
+            }
         }
         else
         {
             Life = (int)stream.ReceiveNext();
+            if (gameObject.tag == "KMS")
+            {
+                animator.SetFloat("x_direction", (float)stream.ReceiveNext());
+                animator.SetFloat("z_direction", (float)stream.ReceiveNext());
+            }
         }
     }
 

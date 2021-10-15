@@ -10,12 +10,9 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool canShoot;
 
-    private Camera cam;
-
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;
         canShoot = true;
         this.enabled = photonView.IsMine;
     }
@@ -25,16 +22,16 @@ public class TPSShootController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Debug.DrawRay(cam.transform.position, cam.transform.forward, Color.yellow, 1.5f);
-            RaycastHit hit;
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
 
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f))
             {
                 if (canShoot)
                 {
                     canShoot = false;
                     //SHOOT
-                    Vector3 direction = hit.point - transform.position;
+                    Vector3 direction = (raycastHit.point - transform.position).normalized;
                     photonView.RPC("Shoot", RpcTarget.AllViaServer, direction);
                     //IENUMERABLE
                     StartCoroutine(Reload());

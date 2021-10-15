@@ -37,21 +37,19 @@ public class PlayerMovements : MonoBehaviour
             verticalForce += Gravity * Time.deltaTime;
         }
 
-        setAnimationAndSpeed();
-
-        if (Input.GetButton("Jump") && charCont.isGrounded)
+        if (animator.GetBool("isDead"))
         {
-            verticalForce = JumpForce;
-        }
-
-        if (Input.GetButton("Fire2") && !animator.GetBool("isWalking"))
-        {
-            animator.SetBool("isTarget", true);
+            GetComponent<CharacterController>().enabled = false;
         }
         else
         {
-            animator.SetBool("isTarget", false);
+            setAnimationAndSpeed();
+            if (Input.GetButton("Jump") && charCont.isGrounded)
+            {
+                verticalForce = JumpForce;
+            }
         }
+
 
         movement = new Vector3(Input.GetAxis("Horizontal") * speed, verticalForce, Input.GetAxis("Vertical") * speed);
 

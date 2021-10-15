@@ -1188,7 +1188,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5067698655415812318}
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.00000028088027}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0.00000028088027}
   m_LocalPosition: {x: -24.82, y: 0, z: 10.422371}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1197,7 +1197,7 @@ Transform:
   - {fileID: 5374338904472629564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 0}
 --- !u!114 &5374338903865584893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,7 +1213,6 @@ MonoBehaviour:
   axes: 1
   SensHorizontal: 5
   SensVertical: 5
-  FlashLight: {fileID: 0}
   MinimumVerticalAngle: -75
   MaximumVerticalAngle: 55
 --- !u!114 &5374338903865584895
@@ -1315,28 +1314,19 @@ MonoBehaviour:
     Name: isWalking
   - Type: 4
     SynchronizeType: 1
-    Name: isCrouched
-  - Type: 4
-    SynchronizeType: 2
-    Name: isJumping
-  - Type: 4
-    SynchronizeType: 2
-    Name: isTarget
-  - Type: 4
-    SynchronizeType: 1
     Name: isMoving
   - Type: 3
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: x_direction
   - Type: 3
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: z_direction
   - Type: 4
     SynchronizeType: 1
     Name: isRunning
-  - Type: 9
-    SynchronizeType: 0
-    Name: stopAnimation
+  - Type: 4
+    SynchronizeType: 1
+    Name: isDead
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1430,7 +1420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChargePrefab: {fileID: 2754326449150332243, guid: 23231b6a88ac8c14f84a7c884a669a85,
     type: 3}
-  force: 5
+  force: 80
 --- !u!114 &8695748382545598934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1526,10 +1516,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1617,7 +1607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 654e2a60bc6d93742b7e1e898c60119f, type: 3}
+  m_Texture: {fileID: 2800000, guid: 967c5a897b88c9343a9f750aacd0c9bf, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1636,8 +1626,8 @@ GameObject:
   - component: {fileID: 5374338904472629565}
   - component: {fileID: 5374338904472629562}
   - component: {fileID: 5374338904472629560}
-  - component: {fileID: 5374338904472629563}
   - component: {fileID: 5374338904472629567}
+  - component: {fileID: 4214885210454534172}
   m_Layer: 2
   m_Name: Camera
   m_TagString: MainCamera
@@ -1719,24 +1709,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5374338904472629561}
   m_Enabled: 1
---- !u!114 &5374338904472629563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374338904472629561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f36d3b26386154994446dfa3c55b42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 2
-  SensHorizontal: 5
-  SensVertical: 5
-  FlashLight: {fileID: 0}
-  MinimumVerticalAngle: -75
-  MaximumVerticalAngle: 55
 --- !u!95 &5374338904472629567
 Animator:
   serializedVersion: 3
@@ -1756,6 +1728,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4214885210454534172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374338904472629561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64f36d3b26386154994446dfa3c55b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axes: 2
+  SensHorizontal: 5
+  SensVertical: 5
+  MinimumVerticalAngle: -75
+  MaximumVerticalAngle: 55
 --- !u!1 &5383466022342505334
 GameObject:
   m_ObjectHideFlags: 0
