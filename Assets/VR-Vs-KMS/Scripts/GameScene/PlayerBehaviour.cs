@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         {
             Debug.Log("clem hit by charge!");
             Life--;
-            if (Life == 0)
+            if (Life <= 0)
             {
                 Respawn();
             }
@@ -43,8 +43,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(photonView.IsMine)
         {
+            Scientific.SetActive(false);
             Scientific.transform.position = spawnPoints[RandomSpawn()].position;
             ResetLifePoints();
+            Scientific.SetActive(true);
         }
         
     }
