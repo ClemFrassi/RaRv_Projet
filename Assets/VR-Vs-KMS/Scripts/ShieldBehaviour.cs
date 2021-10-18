@@ -28,18 +28,22 @@ public class ShieldBehaviour : MonoBehaviourPunCallbacks
 
     public void Hit()
     {
-        Debug.Log("HIT");
-        if (count >= 4)
+        if (photonView.IsMine)
         {
-            count = 0;
-            Destroy();
+            Debug.Log("HIT");
+            if (count >= 4)
+            {
+                count = 0;
+                Destroy();
 
+            }
+            else
+            {
+                count++;
+                ReduceShield();
+            }
         }
-        else
-        {
-            count++;
-            ReduceShield();
-        }
+        
        
     }
 
