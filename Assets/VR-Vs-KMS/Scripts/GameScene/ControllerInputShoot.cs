@@ -102,7 +102,9 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     private void GrabSelectedObject()
     {
-        if(photonView.IsMine)
+        PhotonView selectedPhoton = selectedObject.GetPhotonView();
+        selectedPhoton.TransferOwnership(photonView.ControllerActorNr);
+        if (photonView.IsMine)
         {
             FixedJoint fx = gameObject.AddComponent<FixedJoint>();
             fx.breakForce = 20000;
