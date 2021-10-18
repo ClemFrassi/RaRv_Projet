@@ -60,4 +60,15 @@ public class ShieldBehaviour : MonoBehaviourPunCallbacks
         transform.localScale = new Vector3(scaleX - count * 0.1f, scaleY, scaleZ - count * 0.1f);
         Overlay.SetShieldValue(5 - count + 1);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var hit = collision.gameObject;
+
+        if(hit.CompareTag("Antiviral"))
+        {
+            Hit();
+            Destroy(hit);
+        }
+    }
 }

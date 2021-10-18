@@ -24,12 +24,12 @@ public class ChargeBehaviour : MonoBehaviour
 
         
         PlayerBehaviour um = hit.GetComponent<PlayerBehaviour>();
-        if (hit.GetComponent<ShieldBehaviour>() && hit.CompareTag("SHIELD") && gameObject.CompareTag("Antiviral"))
+       /* if (hit.GetComponent<ShieldBehaviour>() && hit.CompareTag("SHIELD") && gameObject.CompareTag("Antiviral"))
         {
             Debug.Log("It's a shield");
             hit.GetComponent<ShieldBehaviour>().Hit();
             Destroy(gameObject);
-        }
+        }*/
 
         if (um != null && ((hit.CompareTag("KMS") && gameObject.CompareTag("Viral")) || ( hit.CompareTag("VR") && gameObject.CompareTag("Antiviral"))))
         {
