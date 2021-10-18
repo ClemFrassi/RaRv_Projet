@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldBehaviour : MonoBehaviour
+public class ShieldBehaviour : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     private float scaleX;
     private float scaleY;
     private float scaleZ;
     private int count;
+
+    public VR_Overlay Overlay;
     void Start()
     {
         count = 0;
@@ -26,32 +29,35 @@ public class ShieldBehaviour : MonoBehaviour
     public void Hit()
     {
         Debug.Log("HIT");
-        if (count >= 5)
+        if (count >= 4)
         {
             count = 0;
             Destroy();
-            
-        } else
+
+        }
+        else
         {
             count++;
             ReduceShield();
         }
+       
     }
 
     private void Destroy()
     {
         transform.localScale = new Vector3(0, 0, 0);
+        Overlay.SetShieldValue(0);
     }
 
     public void Repair()
     {
         transform.localScale = new Vector3(scaleX , scaleY, scaleZ);
+        Overlay.ResetShield();
     }
 
     private void ReduceShield()
     {
-        Debug.Log("REDUCE");
         transform.localScale = new Vector3(scaleX - count * 0.1f, scaleY, scaleZ - count * 0.1f);
-        Debug.Log("REDUCED");
+        Overlay.SetShieldValue(5 - count + 1);
     }
 }

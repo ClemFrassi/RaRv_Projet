@@ -8,6 +8,9 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
+
+    private GameObject selectedObject;
+    private bool isGrabbingPinch;
     public GameObject ChargePrefab;
 
     public int force;
@@ -40,14 +43,27 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
                 StartCoroutine(Reload());
             }
         }
+
+        if (SteamVR_Actions._default.Teleport.GetStateDown(inputSource))
+        {
+            if (selectedObject)
+            {
+                isGrabbingPinch = true;
+                GrabSelectedObject();
+            }
+        }
+
+        if (SteamVR_Actions._default.Teleport.GetStateUp(inputSource))
+        {
+            isGrabbingPinch = false;
+            UngrabSelectedObject();
+        }
     }
 
     IEnumerator Reload()
     {
-        Debug.Log("Clément is Reloading for " + GameConfig.GetInstance().DelayShoot);
         yield return new WaitForSeconds(GameConfig.GetInstance().DelayShoot);
         canShoot = true;
-        Debug.Log("canShoot + " + canShoot);
     }
 
     [PunRPC]
@@ -64,5 +80,51 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<GrabbableObject>())
+        {
+            Debug.Log("OBJET SELECTIONNER");
+            selectedObject = other.gameObject;
+            Debug.Log(selectedObject.name);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (selectedObject == other.gameObject)
+        {
+            selectedObject = null;
+        }
+    }
+
+    private void GrabSelectedObject()
+    {
+        if(photonView.IsMine)
+        {
+            FixedJoint fx = gameObject.AddComponent<FixedJoint>();
+            fx.breakForce = 20000;
+            fx.breakTorque = 20000;
+            fx.connectedBody = selectedObject.GetComponent<Rigidbody>();
+        }
+        
+
+    }
+
+    private void UngrabSelectedObject()
+    {
+        if (photonView.IsMine)
+        {
+            if (gameObject.GetComponent<FixedJoint>())
+            {
+                FixedJoint fx = gameObject.GetComponent<FixedJoint>();
+                fx.connectedBody = null;
+                Destroy(fx);
+                selectedObject.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<SteamVR_Behaviour_Pose>().GetVelocity() * 2;
+            }
+        }
+            
     }
 }
