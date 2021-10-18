@@ -125,7 +125,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit()
     {
-        Debug.Log("MODIFY");
         Life--;
         if (gameObject.tag == "VR")
         {
@@ -146,5 +145,24 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         yield return new WaitForSeconds(5);
         Scientific.GetComponent<PlayerMovements>().enabled = true;
         Respawn();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var hit = collision.gameObject;
+
+        if ( (hit.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (hit.CompareTag("Antiviral") && gameObject.CompareTag("VR")) )
+        {
+            HitByCharge();
+            Destroy(hit);
+        }
+
+        /*if (um != null && ((hit.CompareTag("KMS") && gameObject.CompareTag("Viral")) || (hit.CompareTag("VR") && gameObject.CompareTag("Antiviral"))))
+        {
+            Debug.Log("  It is a player !!");
+            Debug.Log(um);
+            um.HitByCharge();
+            Destroy(gameObject);
+        }*/
     }
 }

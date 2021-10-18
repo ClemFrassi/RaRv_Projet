@@ -17,7 +17,7 @@ public class ChargeBehaviour : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         var hit = collision.gameObject;
         Debug.Log("Charge hit something:" + hit);
@@ -29,7 +29,7 @@ public class ChargeBehaviour : MonoBehaviour
             Debug.Log("It's a shield");
             hit.GetComponent<ShieldBehaviour>().Hit();
             Destroy(gameObject);
-        }*/
+        }
 
         if (um != null && ((hit.CompareTag("KMS") && gameObject.CompareTag("Viral")) || ( hit.CompareTag("VR") && gameObject.CompareTag("Antiviral"))))
         {
@@ -41,5 +41,5 @@ public class ChargeBehaviour : MonoBehaviour
 
         
         
-    }
+    }*/
 }
