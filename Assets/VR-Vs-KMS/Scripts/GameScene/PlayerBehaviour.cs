@@ -40,7 +40,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         if(photonView.IsMine)
         {
             Hit();
-            if (Life <= 0)
+            if (Life == 0)
             {
                 if(gameObject.CompareTag("KMS")) {  
                     StartCoroutine(WaitForAnim());

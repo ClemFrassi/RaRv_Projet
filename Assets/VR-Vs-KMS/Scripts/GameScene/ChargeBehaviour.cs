@@ -34,6 +34,6 @@ public class ChargeBehaviour : MonoBehaviour
             Debug.Log("It's a shield");
             hit.GetComponent<ShieldBehaviour>().Hit();
         }
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }
