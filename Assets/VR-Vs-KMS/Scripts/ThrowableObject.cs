@@ -41,9 +41,10 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         }
 
         
-        if(other.gameObject.GetComponent<PlayerBehaviour>())
+        if(other.gameObject.GetComponentInChildren<PlayerBehaviour>())
         {
-            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);   
+            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
+            Destroy(gameObject);
         }
         
 
@@ -56,16 +57,8 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         GameObject other =  PhotonView.Find(userID).gameObject;
         Debug.Log("NOM DE l'objet : " + other.name);
         Debug.Log("TAG DE l'objet : " + other.tag);
-        if (other.CompareTag("VR"))
-        {
-            Debug.Log("DEGATS SUR : " + other.name);
-            other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
-        } else if (other.CompareTag("KMS"))
-        {
-            Debug.Log("DEGATS SUR : " + other.name);
-            other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
-        }
+        other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
 
-        Destroy(gameObject);
+        
     }
 }
