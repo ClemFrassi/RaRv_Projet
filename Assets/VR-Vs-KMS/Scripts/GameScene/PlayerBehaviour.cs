@@ -15,6 +15,9 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public ShieldBehaviour Shield;
     public TPSShootController KMScanShoot;
     public ControllerInputShoot VRcanShoot;
+    public AudioSource hit;
+    public AudioSource death;
+    public AudioSource respawn;
 
     void Start()
     {
@@ -40,10 +43,14 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             Hit();
-            if (Life == 0)
+            if (Life > 0)
             {
-                if (gameObject.CompareTag("KMS"))
-                {
+                hit.Play();
+            }
+            else if (Life == 0)
+            {
+                death.Play();
+                if(gameObject.CompareTag("KMS")) {  
                     StartCoroutine(WaitForAnim());
                 }
                 else if (gameObject.CompareTag("VR"))
@@ -79,6 +86,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             }
             Scientific.SetActive(true);
             Overlay.ResetLife();
+            respawn.Play();
         }
 
     }
