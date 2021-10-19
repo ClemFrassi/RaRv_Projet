@@ -102,6 +102,7 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     private void GrabSelectedObject()
     {
+        selectedObject.GetComponent<ThrowableObject>().Priming();
         PhotonView selectedPhoton = selectedObject.GetPhotonView();
         selectedPhoton.TransferOwnership(photonView.ControllerActorNr);
         if (photonView.IsMine)
@@ -126,8 +127,6 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
                 Destroy(fx);
                 selectedObject.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<SteamVR_Behaviour_Pose>().GetVelocity() * 2;
             }
-
-            selectedObject.GetComponent<ThrowableObject>().Priming();
         }
             
     }
