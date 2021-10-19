@@ -6,6 +6,7 @@ public class ThrowableObject : MonoBehaviour
 {
     // Start is called before the first frame update
     private bool explosive;
+    private bool ready;
     void Start()
     {
         explosive = false;
@@ -19,14 +20,29 @@ public class ThrowableObject : MonoBehaviour
 
     public void Priming()
     {
-        explosive = true;
+        ready = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(explosive)
+        if(ready)
         {
-
+            explosive = true;
         }
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!explosive)
+        {
+            return;
+        }
+
+        if(other.CompareTag("KMS") || other.CompareTag("VR")) {
+            other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
+        }
+
+        Destroy(gameObject);
     }
 }

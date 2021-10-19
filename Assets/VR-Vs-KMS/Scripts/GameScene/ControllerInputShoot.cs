@@ -126,6 +126,8 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
                 Destroy(fx);
                 selectedObject.GetComponent<Rigidbody>().velocity = gameObject.GetComponent<SteamVR_Behaviour_Pose>().GetVelocity() * 2;
             }
+
+            selectedObject.GetComponent<ThrowableObject>().Priming();
         }
             
     }
