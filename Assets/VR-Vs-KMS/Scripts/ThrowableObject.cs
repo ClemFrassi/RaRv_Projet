@@ -6,11 +6,18 @@ using UnityEngine;
 public class ThrowableObject : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
+    public GameObject explosionPrefab;
+
     private bool explosive;
     private bool ready;
+    private bool exploded;
+
+    
+
     void Start()
     {
         explosive = false;
+        ready = false;
     }
 
     // Update is called once per frame
@@ -28,7 +35,12 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if(ready)
         {
-            explosive = true;
+            if(!explosive)
+            {
+                explosive = true;
+                photonView.RPC("Particle", RpcTarget.AllViaServer);
+            }
+            
         }
     }
 
@@ -45,20 +57,34 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         {
             photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
         }
-        
+        StartCoroutine(Delete());
 
     }
 
     [PunRPC]
     private void Explosion(int userID, PhotonMessageInfo info)
     {
-        Debug.Log("LAUNCHED");
         GameObject other =  PhotonView.Find(userID).gameObject;
-        Debug.Log("NOM DE l'objet : " + other.name);
-        Debug.Log("TAG DE l'objet : " + other.tag);
         other.GetComponentInChildren<PlayerBehaviour>().HitByBomb();
+    }
+
+    [PunRPC]
+    private void Particle(PhotonMessageInfo info)
+    {
+        GameObject Particle = Instantiate(explosionPrefab, gameObject.transform.position, gameObject.transform.rotation);
+    }
+
+    [PunRPC]
+    private void Destroy(PhotonMessageInfo info)
+    {
+        explosionPrefab.GetComponent<ParticleSystem>().Pause();
+        Destroy(explosionPrefab);
         Destroy(gameObject);
+    }
 
-
+    IEnumerator Delete()
+    {
+        yield return new WaitForSeconds(3);
+        photonView.RPC("Destroy", RpcTarget.AllViaServer);
     }
 }
