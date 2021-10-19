@@ -38,8 +38,4 @@ public class ChargeBehaviour : MonoBehaviour
             um.HitByCharge();
             Destroy(gameObject);
         }
-
-        
-        
-    }*/
 }

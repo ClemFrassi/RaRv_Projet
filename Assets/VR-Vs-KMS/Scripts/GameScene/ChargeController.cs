@@ -37,6 +37,6 @@ public class ChargeController : MonoBehaviour
 
     void Kill()
     {
-        Destroy(gameObject, 5f);
+        //Destroy(gameObject, 5f);
     }
 }
