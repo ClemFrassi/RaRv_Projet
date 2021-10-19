@@ -37,5 +37,5 @@ public class ChargeBehaviour : MonoBehaviour
             Debug.Log(um);
             um.HitByCharge();
             Destroy(gameObject);
-        }
+        }*/
 }
