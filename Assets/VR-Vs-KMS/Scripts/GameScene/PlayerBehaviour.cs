@@ -55,7 +55,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         
     }
 
-    public void HitByBomb(GameObject bomb)
+    public void HitByBomb()
     {
         if (photonView.IsMine)
         {
@@ -74,7 +74,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
             }
             Debug.Log(gameObject.name + " killed by bomb");
-            Destroy(bomb);
         }
 
     }

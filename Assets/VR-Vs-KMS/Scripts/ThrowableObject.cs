@@ -56,8 +56,9 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         GameObject other =  PhotonView.Find(userID).gameObject;
         Debug.Log("NOM DE l'objet : " + other.name);
         Debug.Log("TAG DE l'objet : " + other.tag);
-        other.GetComponentInChildren<PlayerBehaviour>().HitByBomb(gameObject);
+        other.GetComponentInChildren<PlayerBehaviour>().HitByBomb();
+        Destroy(gameObject);
 
-        
+
     }
 }
