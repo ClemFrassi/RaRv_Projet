@@ -17,23 +17,25 @@ public class ChargeBehaviour : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         var hit = collision.gameObject;
         Debug.Log("Charge hit something:" + hit);
 
         
         PlayerBehaviour um = hit.GetComponent<PlayerBehaviour>();
-        if (um != null && ((hit.tag == "KMS" && gameObject.tag == "Viral") || (hit.tag == "VR" && gameObject.tag == "Antiviral")))
+       /* if (hit.GetComponent<ShieldBehaviour>() && hit.CompareTag("SHIELD") && gameObject.CompareTag("Antiviral"))
+        {
+            Debug.Log("It's a shield");
+            hit.GetComponent<ShieldBehaviour>().Hit();
+            Destroy(gameObject);
+        }
+
+        if (um != null && ((hit.CompareTag("KMS") && gameObject.CompareTag("Viral")) || ( hit.CompareTag("VR") && gameObject.CompareTag("Antiviral"))))
         {
             Debug.Log("  It is a player !!");
             Debug.Log(um);
             um.HitByCharge();
-        } else if (hit.GetComponent<ShieldBehaviour>() && hit.tag == "SHIELD" && gameObject.tag == "Antiviral")
-        {
-            Debug.Log("It's a shield");
-            hit.GetComponent<ShieldBehaviour>().Hit();
+            Destroy(gameObject);
         }
-        //Destroy(gameObject);
-    }
 }
