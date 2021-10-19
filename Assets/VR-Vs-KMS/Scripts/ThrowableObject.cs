@@ -56,10 +56,14 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         GameObject other =  PhotonView.Find(userID).gameObject;
         Debug.Log("NOM DE l'objet : " + other.name);
         Debug.Log("TAG DE l'objet : " + other.tag);
-        if (other.CompareTag("KMS") || other.CompareTag("VR"))
+        if (other.CompareTag("VR"))
         {
             Debug.Log("DEGATS SUR : " + other.name);
             other.GetComponent<PlayerBehaviour>().HitByCharge();
+        } else if (other.CompareTag("KMS"))
+        {
+            Debug.Log("DEGATS SUR : " + other.name);
+            other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
         }
 
         Destroy(gameObject);
