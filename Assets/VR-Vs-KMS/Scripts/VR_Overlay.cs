@@ -12,7 +12,6 @@ public class VR_Overlay : MonoBehaviour
     public Text ShieldText;
     void Start()
     {
-        
     }
 
     // Update is called once per frame

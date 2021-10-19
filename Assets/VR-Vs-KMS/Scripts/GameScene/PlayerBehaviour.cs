@@ -18,7 +18,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
-        if(gameObject.tag == "KMS")
+        if (gameObject.tag == "KMS")
         {
             animator = GetComponentInParent<Animator>();
         }
@@ -37,32 +37,35 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void HitByCharge()
     {
-        if(photonView.IsMine)
+        if (photonView.IsMine)
         {
             Hit();
             if (Life == 0)
             {
-                if(gameObject.CompareTag("KMS")) {  
+                if (gameObject.CompareTag("KMS"))
+                {
                     StartCoroutine(WaitForAnim());
-                } else if (gameObject.CompareTag("VR"))
+                }
+                else if (gameObject.CompareTag("VR"))
                 {
                     Respawn();
                 }
-               
-                
+
+
             }
         }
-        
+
     }
 
     public void Respawn()
     {
-        if(photonView.IsMine)
+        if (photonView.IsMine)
         {
-            if(gameObject.CompareTag("VR"))
+            if (gameObject.CompareTag("VR"))
             {
                 VRcanShoot.canShoot = true;
-            } else if (gameObject.CompareTag("KMS"))
+            }
+            else if (gameObject.CompareTag("KMS"))
             {
                 KMScanShoot.canShoot = true;
             }
@@ -75,8 +78,9 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 ResetShield();
             }
             Scientific.SetActive(true);
+            Overlay.ResetLife();
         }
-        
+
     }
 
     public void GetSpawners()
@@ -89,13 +93,13 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public int RandomSpawn()
     {
-        return Random.Range(1, spawnPoints.Count-1);
+        return Random.Range(1, spawnPoints.Count - 1);
     }
 
     public void ResetLifePoints()
     {
         Life = GameConfig.GetInstance().LifeNumber;
-        if(gameObject.tag == "VR")
+        if (gameObject.tag == "VR")
         {
             Overlay.ResetLife();
         }
@@ -125,8 +129,11 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit()
     {
-        Life--;
-        if (gameObject.tag == "VR")
+        if (Life > 0)
+        {
+            Life--;
+        }
+        if (gameObject.tag == "VR" || gameObject.tag == "KMS")
         {
             Overlay.SetHealthValue(Life);
         }
@@ -140,10 +147,12 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     IEnumerator WaitForAnim()
     {
         Scientific.GetComponent<PlayerMovements>().enabled = false;
+        Scientific.GetComponent<CameraController>().enabled = false;
         Debug.Log("CAN'T MOVE + TRIGGER ANIM");
         GetComponentInParent<Animator>().SetTrigger("triggerDead");
         yield return new WaitForSeconds(5);
         Scientific.GetComponent<PlayerMovements>().enabled = true;
+        Scientific.GetComponent<CameraController>().enabled = true;
         Respawn();
     }
 
@@ -151,7 +160,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         var hit = collision.gameObject;
 
-        if ( (hit.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (hit.CompareTag("Antiviral") && gameObject.CompareTag("VR")) )
+        if ((hit.CompareTag("Viral") && gameObject.CompareTag("KMS")) || (hit.CompareTag("Antiviral") && gameObject.CompareTag("VR")))
         {
             HitByCharge();
             Destroy(hit);
