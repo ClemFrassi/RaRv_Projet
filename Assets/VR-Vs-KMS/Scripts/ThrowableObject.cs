@@ -50,7 +50,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
                 Debug.Log("DEGATS SUR : " + other.name);
                 other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
 
             //photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);   
         }
