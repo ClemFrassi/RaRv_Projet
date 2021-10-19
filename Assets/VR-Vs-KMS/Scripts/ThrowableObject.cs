@@ -59,7 +59,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         if (other.CompareTag("KMS") || other.CompareTag("VR"))
         {
             Debug.Log("DEGATS SUR : " + other.name);
-            other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
+            other.GetComponent<PlayerBehaviour>().HitByCharge();
         }
 
         Destroy(gameObject);
