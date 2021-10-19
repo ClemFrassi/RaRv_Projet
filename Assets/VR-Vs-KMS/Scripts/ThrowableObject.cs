@@ -49,11 +49,11 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
     }
 
-
+    [PunRPC]
     private void Explosion(int userID, PhotonMessageInfo info)
     {
         Debug.Log("LAUNCHED");
-        PhotonView other =  PhotonView.Find(userID);
+        GameObject other =  PhotonView.Find(userID).gameObject;
         Debug.Log("NOM DE l'objet : " + other.name);
         Debug.Log("TAG DE l'objet : " + other.tag);
         if (other.CompareTag("KMS") || other.CompareTag("VR"))
