@@ -21,7 +21,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
     public void Priming()
     {
-        Debug.Log("PRIMING");
         ready = true;
     }
 
@@ -29,7 +28,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if(ready)
         {
-            Debug.Log("EXPLOSIVE");
             explosive = true;
         }
     }
@@ -39,15 +37,22 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if (!explosive)
         {
-            Debug.Log("DANS LA ZONE : " + other.name);
             return;
         }
 
         
         if(other.gameObject.GetComponent<PlayerBehaviour>())
         {
-            Debug.Log("DEGATS");
-            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);   
+            Debug.Log("DANS LA ZONE : " + other.name);
+            Debug.Log(other.GetComponent<PlayerBehaviour>().photonView.ViewID);
+            if (other.CompareTag("KMS") || other.CompareTag("VR"))
+            {
+                Debug.Log("DEGATS SUR : " + other.name);
+                other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
+            }
+            Destroy(gameObject);
+
+            //photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);   
         }
         
 
