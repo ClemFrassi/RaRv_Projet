@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowableObject : MonoBehaviour
+public class ThrowableObject : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     private bool explosive;
@@ -20,6 +21,7 @@ public class ThrowableObject : MonoBehaviour
 
     public void Priming()
     {
+        Debug.Log("PRIMING");
         ready = true;
     }
 
@@ -27,6 +29,7 @@ public class ThrowableObject : MonoBehaviour
     {
         if(ready)
         {
+            Debug.Log("EXPLOSIVE");
             explosive = true;
         }
     }
@@ -39,7 +42,17 @@ public class ThrowableObject : MonoBehaviour
             return;
         }
 
-        if(other.CompareTag("KMS") || other.CompareTag("VR")) {
+        Debug.Log("DEGATS");
+        photonView.RPC("Explosion", RpcTarget.AllViaServer, other);
+
+    }
+
+
+    private void Explosion(Collider other, PhotonMessageInfo info)
+    {
+        if (other.CompareTag("KMS") || other.CompareTag("VR"))
+        {
+            Debug.Log("DEGATS SUR : " + other.name);
             other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
         }
 
