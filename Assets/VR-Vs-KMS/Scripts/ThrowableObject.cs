@@ -43,16 +43,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         
         if(other.gameObject.GetComponent<PlayerBehaviour>())
         {
-            Debug.Log("DANS LA ZONE : " + other.name);
-            Debug.Log(other.GetComponent<PlayerBehaviour>().photonView.ViewID);
-            if (other.CompareTag("KMS") || other.CompareTag("VR"))
-            {
-                Debug.Log("DEGATS SUR : " + other.name);
-                other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
-            }
-            //Destroy(gameObject);
-
-            //photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);   
+            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);   
         }
         
 
@@ -68,7 +59,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         if (other.CompareTag("KMS") || other.CompareTag("VR"))
         {
             Debug.Log("DEGATS SUR : " + other.name);
-            other.GetComponent<PlayerBehaviour>().HitByCharge();
+            other.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
         }
 
         Destroy(gameObject);
