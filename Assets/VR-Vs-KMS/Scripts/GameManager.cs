@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     private int VRcontamination;
     private int KMScontamination;
     public Canvas EndGameCanvas;
+    public RawImage ColoredBackground;
+    public Text EndText;
 
     void Start()
     {
@@ -55,6 +58,11 @@ public class GameManager : MonoBehaviour
         EndGameCanvas.gameObject.SetActive(true);
         EndGameCanvas.worldCamera = Camera.current;
         EndGameCanvas.planeDistance = 1;
+
+        if (Camera.current.CompareTag("VR"))
+        {
+
+        }
 
     }
 }
