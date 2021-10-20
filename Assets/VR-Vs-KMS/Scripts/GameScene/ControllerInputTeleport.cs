@@ -54,7 +54,7 @@ public class ControllerInputTeleport : MonoBehaviourPunCallbacks
         ControllerPointer cp = gameObject.GetComponent<ControllerPointer>();
         if (cp.CanTeleport)
         {
-            photonView.RPC("Teleport", RpcTarget.AllViaServer, cameraRig.transform.position, cp.TargetPosition);
+            photonView.RPC("Teleport", RpcTarget.AllViaServer, cameraRig.GetComponent<PhotonView>().ViewID, this.photonView.ViewID);
             cameraRig.transform.position = cp.TargetPosition;
             canTeleport = false;
             StartCoroutine(ResetTeleport());
@@ -77,9 +77,12 @@ public class ControllerInputTeleport : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void Teleport(Vector3 startPosition, Vector3 targetPosition, PhotonMessageInfo info)
+    void Teleport(int cameraRigId, int controllerId, PhotonMessageInfo info)
     {
-        GameObject particles = Instantiate(TeleportParticles, startPosition, gameObject.transform.rotation);
+        Vector3 startPosition = PhotonView.Find(cameraRigId).gameObject.transform.position;
+        Vector3 targetPosition = PhotonView.Find(controllerId).GetComponent<ControllerPointer>().TargetPosition;
+
+        GameObject particles = Instantiate(TeleportParticles, startPosition, new Quaternion());
         particles.transform.LookAt(targetPosition);
         particles.transform.position = Vector3.Lerp(startPosition, targetPosition, 1f);
         Destroy(particles, 1f);
