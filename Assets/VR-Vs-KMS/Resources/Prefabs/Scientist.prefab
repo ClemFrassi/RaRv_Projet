@@ -964,6 +964,8 @@ MonoBehaviour:
   hit: {fileID: 5324520974812133756}
   death: {fileID: 6414011014392247806}
   respawn: {fileID: 3740522395465643166}
+  gameManager: {fileID: 0}
+  actualcamera: {fileID: 5374338904472629565}
 --- !u!64 &7565182875970156321
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2142,7 +2144,7 @@ GameObject:
   - component: {fileID: 5374338904472629567}
   - component: {fileID: 4214885210454534172}
   m_Layer: 2
-  m_Name: Camera
+  m_Name: KMSCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

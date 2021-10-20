@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - ThrowBall
   - Shoot
+  - Restart
+  - EndGame
   - Explosion
   - Particle
   - Destroy

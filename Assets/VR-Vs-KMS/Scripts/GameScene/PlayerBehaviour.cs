@@ -18,9 +18,17 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public AudioSource hit;
     public AudioSource death;
     public AudioSource respawn;
+    public GameManager gameManager;
+    public Camera actualcamera;
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (photonView.IsMine)
+        {
+            gameManager.mainCam = actualcamera;
+        }
+        
         if (gameObject.tag == "KMS")
         {
             animator = GetComponentInParent<Animator>();
@@ -52,10 +60,12 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 death.Play();
                 if(gameObject.CompareTag("KMS")) {  
                     StartCoroutine(WaitForAnim());
+                    gameManager.Contamined(0);
                 }
                 else if (gameObject.CompareTag("VR"))
                 {
                     Respawn();
+                    gameManager.Contamined(1);
                 }
 
 
