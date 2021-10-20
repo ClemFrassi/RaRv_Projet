@@ -56,7 +56,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
         if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
         {
-            explosive = false;
             //photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
             Explosion(other.gameObject);
             
