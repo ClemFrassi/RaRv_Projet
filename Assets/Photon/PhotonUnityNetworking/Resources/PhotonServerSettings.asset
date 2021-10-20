@@ -43,6 +43,9 @@ MonoBehaviour:
   - Shoot
   - Restart
   - EndGame
+  - Explosion
+  - Particle
+  - Destroy
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
