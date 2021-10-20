@@ -57,6 +57,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
         {
             photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
+            explosive = false;
         }
         StartCoroutine(Delete());    
 
@@ -83,7 +84,8 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
     IEnumerator Delete()
     {
+        yield return new WaitForSeconds(1);
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
-        yield return new WaitForSeconds(4);
+
     }
 }
