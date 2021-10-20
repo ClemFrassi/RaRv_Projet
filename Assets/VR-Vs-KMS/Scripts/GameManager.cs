@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
     {
         if (mainCam.CompareTag("VR"))
         {
+            EndGameCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+            EndGameCanvas.planeDistance = 1;
+            EndGameCanvas.worldCamera = mainCam;
+            EndGameCanvas.gameObject.SetActive(true);
+
             if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
             {
                 Victory();
@@ -69,6 +74,9 @@ public class GameManager : MonoBehaviour
 
         if (mainCam.CompareTag("MainCamera"))
         {
+            EndGameCanvas.gameObject.SetActive(true);
+            EndGameCanvas.planeDistance = 1;
+
             if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
             {
                 Victory();
@@ -83,9 +91,7 @@ public class GameManager : MonoBehaviour
 
     void Victory()
     {
-        EndGameCanvas.gameObject.SetActive(true);
-        EndGameCanvas.worldCamera = Camera.current;
-        EndGameCanvas.planeDistance = 1;
+       
         EndText.text = "VICTORY";
         ColoredBackground.color = Color.green;
 
@@ -93,9 +99,7 @@ public class GameManager : MonoBehaviour
 
     void Defeat()
     {
-        EndGameCanvas.gameObject.SetActive(true);
-        EndGameCanvas.worldCamera = Camera.current;
-        EndGameCanvas.planeDistance = 1;
+        
         EndText.text = "DEFEAT";
         ColoredBackground.color = Color.red;
     }
