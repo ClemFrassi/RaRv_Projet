@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Canvas EndGameCanvas;
     public RawImage ColoredBackground;
     public Text EndText;
+    public Camera mainCam;
 
     void Start()
     {
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        if (Camera.main.CompareTag("VR"))
+        if (mainCam.CompareTag("VR"))
         {
             if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
             {
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Camera.main.CompareTag("MainCamera"))
+        if (mainCam.CompareTag("MainCamera"))
         {
             if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
             {

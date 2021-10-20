@@ -1186,7 +1186,7 @@ Canvas:
   m_GameObject: {fileID: 325764673}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
@@ -6897,6 +6897,7 @@ MonoBehaviour:
   EndGameCanvas: {fileID: 325764676}
   ColoredBackground: {fileID: 978186646}
   EndText: {fileID: 1154013437}
+  mainCam: {fileID: 0}
 --- !u!4 &1892386998
 Transform:
   m_ObjectHideFlags: 0
