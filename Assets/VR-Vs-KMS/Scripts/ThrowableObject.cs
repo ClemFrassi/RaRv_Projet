@@ -56,10 +56,10 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
         if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
         {
+
             photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
             
-        }
-        StartCoroutine(Delete());    
+        } 
 
     }
 
@@ -68,6 +68,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         GameObject other =  PhotonView.Find(userID).gameObject;
         other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
+        photonView.RPC("Destroy", RpcTarget.AllViaServer);
     }
 
     /*private void Explosion(GameObject other)
