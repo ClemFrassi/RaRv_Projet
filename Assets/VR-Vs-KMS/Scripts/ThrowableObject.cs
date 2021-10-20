@@ -78,6 +78,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     [PunRPC]
     private void DestroyParticle(PhotonMessageInfo info)
     {
+        Debug.Log("DESTROYED");
         Destroy(ParticleObject);
     }
 
