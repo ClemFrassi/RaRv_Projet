@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-public class ControllerInputTeleport : MonoBehaviourPunCallbacks
+public class ControllerInputTeleport : MonoBehaviourPunCallbacks, IPunObservable
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
@@ -54,7 +54,7 @@ public class ControllerInputTeleport : MonoBehaviourPunCallbacks
         ControllerPointer cp = gameObject.GetComponent<ControllerPointer>();
         if (cp.CanTeleport)
         {
-            photonView.RPC("Teleport", RpcTarget.AllViaServer, cameraRig.GetComponent<PhotonView>().ViewID, this.photonView.ViewID);
+            photonView.RPC("Teleport", RpcTarget.Others, cameraRig.transform.position, cp.TargetPosition);
             cameraRig.transform.position = cp.TargetPosition;
             canTeleport = false;
             StartCoroutine(ResetTeleport());
@@ -77,14 +77,15 @@ public class ControllerInputTeleport : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void Teleport(int cameraRigId, int controllerId, PhotonMessageInfo info)
+    void Teleport(Vector3 startPosition, Vector3 targetPosition, PhotonMessageInfo info)
     {
-        Vector3 startPosition = PhotonView.Find(cameraRigId).gameObject.transform.position;
-        Vector3 targetPosition = PhotonView.Find(controllerId).GetComponent<ControllerPointer>().TargetPosition;
-
-        GameObject particles = Instantiate(TeleportParticles, startPosition, new Quaternion());
+        GameObject particles = Instantiate(TeleportParticles, startPosition, gameObject.transform.rotation);
         particles.transform.LookAt(targetPosition);
         particles.transform.position = Vector3.Lerp(startPosition, targetPosition, 1f);
         Destroy(particles, 1f);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
     }
 }
