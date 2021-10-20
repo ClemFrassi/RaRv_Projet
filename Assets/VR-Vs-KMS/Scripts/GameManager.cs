@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        //remplir la liste des zone de contamination
     }
 
     // Update is called once per frame
@@ -42,27 +42,60 @@ public class GameManager : MonoBehaviour
 
     void CheckScore()
     {
-        if (KMScontamination >= GameConfig.GetInstance().NbContaminatedPlayerToVictory)
+        if (KMScontamination >= GameConfig.GetInstance().NbContaminatedPlayerToVictory || VRcontamination >= GameConfig.GetInstance().NbContaminatedPlayerToVictory)
         {
-            //KMS WIN
+            EndGame();
         }
+    }
 
-        if (VRcontamination >= GameConfig.GetInstance().NbContaminatedPlayerToVictory)
-        {
-            //VR WIN
-        }
+    void CheckContamination()
+    {
+       //check les zones
     }
 
     void EndGame()
     {
+        if (Camera.current.CompareTag("VR"))
+        {
+            if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
+            {
+                Victory();
+            } else if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée par KMS*/)
+            {
+                Defeat();
+            }
+        }
+
+        if (Camera.current.CompareTag("MainCamera"))
+        {
+            if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
+            {
+                Victory();
+            }
+            else if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée par KMS*/)
+            {
+                Defeat();
+            }
+        }
+
+    }
+
+    void Victory()
+    {
         EndGameCanvas.gameObject.SetActive(true);
         EndGameCanvas.worldCamera = Camera.current;
         EndGameCanvas.planeDistance = 1;
+        EndText.text = "VICTORY";
+        ColoredBackground.color = Color.green;
 
-        if (Camera.current.CompareTag("VR"))
-        {
+    }
 
-        }
-
+    void Defeat()
+    {
+        EndGameCanvas.gameObject.SetActive(true);
+        EndGameCanvas.worldCamera = Camera.current;
+        EndGameCanvas.planeDistance = 1;
+        EndText.text = "DEFEAT";
+        ColoredBackground.color = Color.red;
     }
 }

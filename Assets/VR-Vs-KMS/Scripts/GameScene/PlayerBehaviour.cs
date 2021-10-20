@@ -22,6 +22,8 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         if (gameObject.tag == "KMS")
         {
             animator = GetComponentInParent<Animator>();
