@@ -19,6 +19,10 @@ namespace vr_vs_kms
         public BelongToProperties virus;
         public BelongToProperties scientist;
 
+        private IEnumerator coroutine;
+
+        private List<GameObject> playerList;
+
         private float faerieSpeed;
         public float cullRadius = 5f;
 
@@ -35,6 +39,7 @@ namespace vr_vs_kms
             setupCullingGroup();
 
             BelongsToNobody();
+            playerList = new List<GameObject>();
         }
 
         private void populateParticleSystemCache()
@@ -69,20 +74,60 @@ namespace vr_vs_kms
             }
         }
 
+        void OnTriggerEnter(Collider coll)
+        {
+            if((coll.gameObject.tag=="KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR"&& coll.gameObject.name == "Camera"))
+            {
+                if(playerList.Count == 0)
+                {
+                    coroutine = CapturingZone();
+                    StartCoroutine(coroutine);
+                }
+                playerList.Add(coll.gameObject);
+            }
+        }
+
         void OnTriggerExit(Collider coll)
         {
-            
+            if ((coll.gameObject.tag == "KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR" && coll.gameObject.name == "Camera"))
+            {
+                int id = playerList.IndexOf(coll.gameObject);
+                if (id == 0)
+                {
+                    StopCoroutine(coroutine);
+                }
+                playerList.Remove(coll.gameObject);
+                if (playerList.Count > 0)
+                {
+                    coroutine = CapturingZone();
+                    StartCoroutine(coroutine);
+                }
+            }
         }
 
         void Update()
         {
-            
+        }
+
+        public IEnumerator CapturingZone()
+        {
+            yield return new WaitForSeconds(GameConfig.GetInstance().TimeToAreaContamination);
+            if (playerList[0].tag == "KMS")
+            {
+                BelongsToScientists();
+            }else if (playerList[0].tag == "VR")
+            {
+                BelongsToVirus();
+            }
         }
 
         private void ColorParticle(ParticleSystem pSys, Color mainColor, Color accentColor)
         {
             // TODO: Solution to color particle 
-            
+            ParticleSystem.MainModule pMain = pSys.main;
+            ParticleSystem.MinMaxGradient colors = new ParticleSystem.MinMaxGradient(mainColor, accentColor);
+            colors.mode = ParticleSystemGradientMode.TwoColors;
+            pMain.startColor = colors;
         }
 
         public void BelongsToNobody()
