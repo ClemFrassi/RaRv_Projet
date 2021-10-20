@@ -12,6 +12,7 @@ public class ChargeBehaviour : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         source.Play();
+        Destroy(gameObject, 1f);
     }
 
     // Update is called once per frame
