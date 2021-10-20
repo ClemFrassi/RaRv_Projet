@@ -11,6 +11,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     private bool explosive;
     private bool ready;
     private bool exploded;
+    private GameObject ParticleObject;
 
     
 
@@ -71,14 +72,13 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Particle(PhotonMessageInfo info)
     {
-        GameObject Particle = Instantiate(explosionPrefab, gameObject.transform.position, gameObject.transform.rotation);
+        ParticleObject = Instantiate(explosionPrefab, gameObject.transform.position, gameObject.transform.rotation);
     }
 
     [PunRPC]
     private void Destroy(PhotonMessageInfo info)
     {
-        explosionPrefab.GetComponent<ParticleSystem>().Pause();
-        Destroy(explosionPrefab);
+        Destroy(ParticleObject);
         Destroy(gameObject);
     }
 
