@@ -20,6 +20,9 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public AudioSource respawn;
     public GameManager gameManager;
     public Camera actualcamera;
+    public CapsuleCollider scientistCollider;
+    public GameObject BlackScreen;
+    public List<GameObject> VirusBody;
 
     void Start()
     {
@@ -64,7 +67,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else if (gameObject.CompareTag("VR"))
                 {
-                    Respawn();
+                    StartCoroutine(VirusKilled());
                     gameManager.Contamined(1);
                 }
 
@@ -187,13 +190,39 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator WaitForAnim()
     {
+        scientistCollider.enabled = false;
         Scientific.GetComponent<PlayerMovements>().enabled = false;
         Scientific.GetComponent<CameraController>().enabled = false;
         Debug.Log("CAN'T MOVE + TRIGGER ANIM");
         GetComponentInParent<Animator>().SetTrigger("triggerDead");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+        StartCoroutine(BlackScreenDisplaying(2));
         Scientific.GetComponent<PlayerMovements>().enabled = true;
         Scientific.GetComponent<CameraController>().enabled = true;
+        scientistCollider.enabled = true;
+        Respawn();
+    }
+
+    IEnumerator BlackScreenDisplaying(float time)
+    {
+        BlackScreen.SetActive(true);
+        yield return new WaitForSeconds(time);
+        BlackScreen.SetActive(false);
+    }
+
+    IEnumerator VirusKilled()
+    {
+        BlackScreen.SetActive(true);
+        foreach (GameObject element in VirusBody)
+        {
+            element.SetActive(false);
+        }
+        yield return new WaitForSeconds(5);
+        foreach (GameObject element in VirusBody)
+        {
+            element.SetActive(true);
+        }
+        BlackScreen.SetActive(false);
         Respawn();
     }
 
