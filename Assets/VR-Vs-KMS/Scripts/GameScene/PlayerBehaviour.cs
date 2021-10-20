@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public AudioSource hit;
     public AudioSource death;
     public AudioSource respawn;
+    public GameManager gameManager;
 
     void Start()
     {
@@ -52,10 +53,12 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 death.Play();
                 if(gameObject.CompareTag("KMS")) {  
                     StartCoroutine(WaitForAnim());
+                    gameManager.Contamined(0);
                 }
                 else if (gameObject.CompareTag("VR"))
                 {
                     Respawn();
+                    gameManager.Contamined(1);
                 }
 
 
