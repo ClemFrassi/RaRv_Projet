@@ -74,29 +74,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-    public void HitByBomb()
-    {
-        if (photonView.IsMine)
-        {
-            Hit();
-            if (Life == 0)
-            {
-                if (gameObject.CompareTag("KMS"))
-                {
-                    StartCoroutine(WaitForAnim());
-                }
-                else if (gameObject.CompareTag("VR"))
-                {
-                    Respawn();
-                }
-
-
-            }
-            Debug.Log(gameObject.name + " killed by bomb");
-        }
-
-    }
-
     public void Respawn()
     {
         if (photonView.IsMine)

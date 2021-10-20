@@ -67,7 +67,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     private void Explosion(int userID, PhotonMessageInfo info)
     {
         GameObject other =  PhotonView.Find(userID).gameObject;
-        other.GetComponentInChildren<PlayerBehaviour>().HitByBomb();
+        other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
     }
 
     [PunRPC]
