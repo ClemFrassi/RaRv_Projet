@@ -170,7 +170,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit()
     {
-        if (Life > 0)
+        if (Life >= 0)
         {
             Life--;
         }
