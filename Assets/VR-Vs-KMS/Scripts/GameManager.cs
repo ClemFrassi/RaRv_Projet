@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     public GameObject AreaContainer;
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         if (KMScontamination >= GameConfig.GetInstance().NbContaminatedPlayerToVictory || VRcontamination >= GameConfig.GetInstance().NbContaminatedPlayerToVictory)
         {
-            EndGame();
+            photonView.RPC("EndGame", RpcTarget.AllViaServer);
         }
     }
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
        //check les zones
     }
 
+    [PunRPC]
     void EndGame()
     {
         if (mainCam.CompareTag("VR"))
