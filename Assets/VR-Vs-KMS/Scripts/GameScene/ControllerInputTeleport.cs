@@ -54,7 +54,8 @@ public class ControllerInputTeleport : MonoBehaviourPunCallbacks, IPunObservable
         ControllerPointer cp = gameObject.GetComponent<ControllerPointer>();
         if (cp.CanTeleport)
         {
-            photonView.RPC("Teleport", RpcTarget.Others, cameraRig.transform.position, cp.TargetPosition);
+            Teleport(cameraRig.transform.position, cp.TargetPosition);
+            //photonView.RPC("Teleport", RpcTarget.Others, cameraRig.transform.position, cp.TargetPosition);
             cameraRig.transform.position = cp.TargetPosition;
             canTeleport = false;
             StartCoroutine(ResetTeleport());
@@ -76,13 +77,27 @@ public class ControllerInputTeleport : MonoBehaviourPunCallbacks, IPunObservable
         canTeleport = true;
     }
 
-    [PunRPC]
-    void Teleport(Vector3 startPosition, Vector3 targetPosition, PhotonMessageInfo info)
+    //[PunRPC]
+    void Teleport(Vector3 startPosition, Vector3 targetPosition)
     {
         GameObject particles = Instantiate(TeleportParticles, startPosition, gameObject.transform.rotation);
         particles.transform.LookAt(targetPosition);
-        particles.transform.position = Vector3.Lerp(startPosition, targetPosition, 1f);
-        Destroy(particles, 1f);
+        StartCoroutine(MoveOverSeconds(particles, targetPosition, 1f));
+        //particles.transform.position = Vector3.Lerp(startPosition, targetPosition, 1f);
+        //Destroy(particles, 1f);
+    }
+
+    public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = end;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
