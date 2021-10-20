@@ -76,15 +76,21 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void Destroy(PhotonMessageInfo info)
+    private void DestroyParticle(PhotonMessageInfo info)
     {
         Destroy(ParticleObject);
+    }
+
+    [PunRPC]
+    private void Destroy(PhotonMessageInfo info)
+    {
         Destroy(gameObject);
     }
 
     IEnumerator Delete()
     {
-        yield return new WaitForSeconds(3);
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
+        yield return new WaitForSeconds(5);
+        photonView.RPC("DestroyParticle", RpcTarget.AllViaServer);
     }
 }
