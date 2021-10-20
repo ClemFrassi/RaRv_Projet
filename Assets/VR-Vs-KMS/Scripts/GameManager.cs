@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void EndGame()
+    void EndGame(PhotonMessageInfo info)
     {
         if (mainCam.CompareTag("VR"))
         {
