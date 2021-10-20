@@ -55,8 +55,7 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        Debug.Log(Camera.current);
-        if (Camera.current.CompareTag("VR"))
+        if (Camera.main.CompareTag("VR"))
         {
             if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
             {
@@ -67,7 +66,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Camera.current.CompareTag("MainCamera"))
+        if (Camera.main.CompareTag("MainCamera"))
         {
             if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
             {

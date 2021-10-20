@@ -2143,7 +2143,7 @@ GameObject:
   - component: {fileID: 5374338904472629567}
   - component: {fileID: 4214885210454534172}
   m_Layer: 2
-  m_Name: Camera
+  m_Name: KMSCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
