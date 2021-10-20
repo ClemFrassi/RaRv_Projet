@@ -90,8 +90,8 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
     IEnumerator Delete()
     {
-        yield return new WaitForSeconds(3);
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
+        yield return new WaitForSeconds(1);
         photonView.RPC("DestroyParticle", RpcTarget.AllViaServer);
     }
 }
