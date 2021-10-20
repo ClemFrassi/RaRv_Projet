@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (mainCam.CompareTag("VR"))
         {
+            EndGameCanvas.tag = "VR";
             EndGameCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             EndGameCanvas.planeDistance = 1;
             EndGameCanvas.worldCamera = mainCam;
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (mainCam.CompareTag("MainCamera"))
         {
+            EndGameCanvas.tag = "KMS";
             EndGameCanvas.gameObject.SetActive(true);
             EndGameCanvas.planeDistance = 1;
 

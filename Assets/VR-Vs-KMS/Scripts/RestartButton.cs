@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class RestartButton : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
+    public GameObject Canvas;
     void Start()
     {
         
@@ -15,7 +16,10 @@ public class RestartButton : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        if (Canvas.CompareTag("VR"))
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void RestartGame()
