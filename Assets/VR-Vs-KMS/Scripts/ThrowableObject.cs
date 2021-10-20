@@ -12,6 +12,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     private bool ready;
     private bool exploded;
     private GameObject ParticleObject;
+    private List<Collider> inside;
 
     
 
@@ -37,13 +38,21 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if(ready)
         {
-            if(!explosive)
-            {
-                explosive = true;
-                photonView.RPC("Particle", RpcTarget.AllViaServer);
-            }
-            
+
+            photonView.RPC("Particle", RpcTarget.AllViaServer);
+            photonView.RPC("Explosion", RpcTarget.AllViaServer);
+            ready = false;    
         }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        inside.Add(other);
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        inside.Remove(other);
     }
 
 
@@ -56,17 +65,22 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
         if (other.gameObject.GetComponent<PlayerBehaviour>())
         {
-            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
+            
         } 
 
     }
 
     [PunRPC]
-    private void Explosion(int userID, PhotonMessageInfo info)
+    private void Explosion(PhotonMessageInfo info)
     {
-        GameObject other =  PhotonView.Find(userID).gameObject;
-        other.GetComponent<PlayerBehaviour>().HitByCharge();
-        explosive = false;
+        foreach (Collider coll in inside)
+        {
+            if (coll.gameObject.GetComponent<PlayerBehaviour>())
+            {
+                coll.GetComponent<PlayerBehaviour>().HitByCharge();
+            }
+        }
+        photonView.RPC("Destroy", RpcTarget.AllViaServer);
     }
 
     /*private void Explosion(GameObject other)
@@ -86,12 +100,5 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     private void Destroy(PhotonMessageInfo info)
     {
         Destroy(gameObject);
-    }
-
-    IEnumerator Delete()
-    {
-        yield return new WaitForSeconds(2);
-        photonView.RPC("Destroy", RpcTarget.AllViaServer);
-
     }
 }
