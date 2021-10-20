@@ -21,6 +21,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         explosive = false;
         ready = false;
         exploded = false;
+        inside = new List<Collider>();
     }
 
     // Update is called once per frame
