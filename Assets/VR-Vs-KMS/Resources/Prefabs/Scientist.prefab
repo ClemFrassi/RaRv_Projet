@@ -965,7 +965,7 @@ MonoBehaviour:
   death: {fileID: 6414011014392247806}
   respawn: {fileID: 3740522395465643166}
   gameManager: {fileID: 0}
-  camera: {fileID: 5374338904472629565}
+  actualcamera: {fileID: 5374338904472629565}
 --- !u!64 &7565182875970156321
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -1924,7 +1924,7 @@ MonoBehaviour:
   death: {fileID: 2383587362223618052}
   respawn: {fileID: 3524766116711638975}
   gameManager: {fileID: 0}
-  camera: {fileID: 9083866901207580012}
+  actualcamera: {fileID: 9083866901207580012}
 --- !u!1001 &9103865264854914304
 PrefabInstance:
   m_ObjectHideFlags: 0
