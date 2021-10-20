@@ -1805,6 +1805,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 9103865264855050452}
+  TeleportParticles: {fileID: 7527467425577136280, guid: f0f62b398275a1b4a932a036d9241645,
+    type: 3}
 --- !u!54 &4284900279474893580
 Rigidbody:
   m_ObjectHideFlags: 0

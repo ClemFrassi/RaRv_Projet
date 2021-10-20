@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-public class ControllerInputTeleport : MonoBehaviour
+public class ControllerInputTeleport : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     private SteamVR_Input_Sources inputSource;
 
     public GameObject cameraRig;
+    public GameObject TeleportParticles;
 
     private bool canTeleport;
 
@@ -52,6 +54,7 @@ public class ControllerInputTeleport : MonoBehaviour
         ControllerPointer cp = gameObject.GetComponent<ControllerPointer>();
         if (cp.CanTeleport)
         {
+            photonView.RPC("Teleport", RpcTarget.AllViaServer, cameraRig.transform.position, cp.TargetPosition);
             cameraRig.transform.position = cp.TargetPosition;
             canTeleport = false;
             StartCoroutine(ResetTeleport());
@@ -71,5 +74,14 @@ public class ControllerInputTeleport : MonoBehaviour
     {
         yield return new WaitForSeconds(GameConfig.GetInstance().DelayTeleport);
         canTeleport = true;
+    }
+
+    [PunRPC]
+    void Teleport(Vector3 startPosition, Vector3 targetPosition, PhotonMessageInfo info)
+    {
+        GameObject particles = Instantiate(TeleportParticles, startPosition, gameObject.transform.rotation);
+        particles.transform.LookAt(targetPosition);
+        particles.transform.position = Vector3.Lerp(startPosition, targetPosition, 1f);
+        Destroy(particles, 1f);
     }
 }

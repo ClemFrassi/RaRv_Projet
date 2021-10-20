@@ -44,6 +44,7 @@ MonoBehaviour:
   - Explosion
   - Particle
   - Destroy
+  - DestroyParticle
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
