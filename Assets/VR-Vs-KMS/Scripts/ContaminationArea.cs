@@ -76,7 +76,7 @@ namespace vr_vs_kms
 
         void OnTriggerEnter(Collider coll)
         {
-            if((coll.gameObject.tag=="KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR"&& coll.gameObject.name == "Camera"))
+            if((coll.gameObject.tag=="KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR" && coll.gameObject.name == "VRCamera"))
             {
                 if(playerList.Count == 0)
                 {
@@ -89,7 +89,7 @@ namespace vr_vs_kms
 
         void OnTriggerExit(Collider coll)
         {
-            if ((coll.gameObject.tag == "KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR" && coll.gameObject.name == "Camera"))
+            if ((coll.gameObject.tag == "KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR" && coll.gameObject.name == "VRCamera"))
             {
                 int id = playerList.IndexOf(coll.gameObject);
                 if (id == 0)
