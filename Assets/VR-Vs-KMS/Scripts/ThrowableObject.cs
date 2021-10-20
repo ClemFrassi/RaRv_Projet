@@ -54,16 +54,11 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
             return;
         }
 
-        if (!exploded)
+        if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
         {
-            if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
-            {
-                photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
-            }
-            StartCoroutine(Delete());
-            exploded = true;
+            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
         }
-        
+        StartCoroutine(Delete());    
 
     }
 

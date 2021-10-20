@@ -102,7 +102,6 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     private void GrabSelectedObject()
     {
-        selectedObject.GetComponent<ThrowableObject>().Priming();
         PhotonView selectedPhoton = selectedObject.GetPhotonView();
         selectedPhoton.TransferOwnership(photonView.ControllerActorNr);
         if (photonView.IsMine)
@@ -118,6 +117,7 @@ public class ControllerInputShoot : MonoBehaviourPunCallbacks, IPunObservable
 
     private void UngrabSelectedObject()
     {
+        selectedObject.GetComponent<ThrowableObject>().Priming();
         if (photonView.IsMine)
         {
             if (gameObject.GetComponent<FixedJoint>())
