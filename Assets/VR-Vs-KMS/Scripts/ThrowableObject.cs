@@ -76,9 +76,9 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         foreach (Collider coll in inside)
         {
-            if (coll.gameObject.GetComponent<PlayerBehaviour>())
+            if (coll.gameObject.GetComponentInChildren<PlayerBehaviour>())
             {
-                coll.GetComponent<PlayerBehaviour>().HitByCharge();
+                coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
             }
         }
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
