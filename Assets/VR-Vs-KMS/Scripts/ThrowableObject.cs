@@ -59,7 +59,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
             photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
             
         }
-        photonView.RPC("Destroy", RpcTarget.AllViaServer);
+        StartCoroutine(Delete());    
 
     }
 
@@ -91,7 +91,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
     IEnumerator Delete()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
 
     }
