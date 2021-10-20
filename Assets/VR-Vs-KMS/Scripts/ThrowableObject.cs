@@ -56,28 +56,26 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
         if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
         {
-            Debug.Log(other.name);
-            //photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
-            Explosion(other.gameObject);
+            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
             
         }
-        StartCoroutine(Delete());    
+        photonView.RPC("Destroy", RpcTarget.AllViaServer);
 
     }
 
-    /*[PunRPC]
+    [PunRPC]
     private void Explosion(int userID, PhotonMessageInfo info)
     {
         GameObject other =  PhotonView.Find(userID).gameObject;
         other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
-    }*/
+    }
 
-    private void Explosion(GameObject other)
+    /*private void Explosion(GameObject other)
     {
         //GameObject other = PhotonView.Find(userID).gameObject;
         Debug.Log(other.name);
         other.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
-    }
+    }*/
 
     [PunRPC]
     private void Particle(PhotonMessageInfo info)
