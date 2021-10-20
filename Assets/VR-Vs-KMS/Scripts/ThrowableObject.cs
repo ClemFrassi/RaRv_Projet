@@ -19,6 +19,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         explosive = false;
         ready = false;
+        exploded = false;
     }
 
     // Update is called once per frame
@@ -53,12 +54,16 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
             return;
         }
 
-        
-        if(other.gameObject.GetComponentInChildren<PlayerBehaviour>())
+        if (!exploded)
         {
-            photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
+            if (other.gameObject.GetComponentInChildren<PlayerBehaviour>())
+            {
+                photonView.RPC("Explosion", RpcTarget.AllViaServer, other.GetComponent<PlayerBehaviour>().photonView.ViewID);
+            }
+            StartCoroutine(Delete());
+            exploded = true;
         }
-        StartCoroutine(Delete());
+        
 
     }
 
@@ -91,7 +96,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     IEnumerator Delete()
     {
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(4);
         photonView.RPC("DestroyParticle", RpcTarget.AllViaServer);
     }
 }
