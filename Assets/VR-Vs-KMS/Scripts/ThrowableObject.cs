@@ -42,7 +42,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         if(ready)
         {
             gameObject.GetComponent<SphereCollider>().enabled = true;
-            photonView.RPC("Particle", RpcTarget.AllViaServer);
             StartCoroutine(ExplodeDelay());
             ready = false;    
         }
@@ -150,6 +149,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     IEnumerator ExplodeDelay()
     {
         yield return new WaitForSeconds(0.5f);
+        photonView.RPC("Particle", RpcTarget.AllViaServer);
         photonView.RPC("Explosion", RpcTarget.AllViaServer);
     }
 }
