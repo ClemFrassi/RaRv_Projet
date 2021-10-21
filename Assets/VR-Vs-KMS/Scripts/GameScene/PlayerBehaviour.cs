@@ -193,9 +193,15 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             GO.SetActive(false);
         }
         yield return new WaitForSeconds(5);
+        int i = 0;
         foreach (GameObject GO in VRGO)
         {
             GO.SetActive(true);
+            if ((i == 0 && !photonView.IsMine) || i > 0)
+            {
+                GO.SetActive(true);
+            }
+            i++;
         }
         BlackScreen.SetActive(false);
         isDead = false;
