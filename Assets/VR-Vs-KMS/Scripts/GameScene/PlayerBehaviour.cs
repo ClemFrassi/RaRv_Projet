@@ -32,7 +32,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         {
             gameManager.mainCam = actualcamera;
         }
-        
+
         if (gameObject.tag == "KMS")
         {
             animator = GetComponentInParent<Animator>();
@@ -48,25 +48,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
-        {
-            int i = 0;
-            foreach (GameObject GO in VRGO)
-            {
-                if ((i == 0 && !photonView.IsMine) || i > 0)
-                {
-                    GO.SetActive(true);
-                }
-                i++;
-            }
-        }
-        else
-        {
-            foreach (GameObject GO in VRGO)
-            {
-                GO.SetActive(false);
-            }
-        }
     }
 
     public void HitByCharge()
@@ -82,7 +63,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             else if (Life == 0 && !isDead)
             {
                 death.Play();
-                if(gameObject.CompareTag("KMS")) {  
+                if (gameObject.CompareTag("KMS")) {
                     StartCoroutine(WaitForAnim());
                     gameManager.Contamined(0);
                 }
@@ -209,10 +190,38 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         isDead = true;
         BlackScreen.SetActive(true);
+        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
         yield return new WaitForSeconds(5);
+        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
         BlackScreen.SetActive(false);
         isDead = false;
         Respawn();
+    }
+
+    [PunRPC]
+    public void KillVR(int id, bool isKilled, PhotonMessageInfo info)
+    {
+        GameObject VR = PhotonView.Find(id).gameObject;
+        List<GameObject> GOs = VR.GetComponent<PlayerBehaviour>().VRGO;
+        if (isKilled)
+        {
+            foreach (GameObject GO in GOs)
+            {
+                GO.SetActive(false);
+            }
+        }
+        else
+        {
+            int i = 0;
+            foreach (GameObject GO in GOs)
+            {
+                if ((i == 0 && !photonView.IsMine) || i > 0)
+                {
+                    GO.SetActive(true);
+                }
+                i++;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
