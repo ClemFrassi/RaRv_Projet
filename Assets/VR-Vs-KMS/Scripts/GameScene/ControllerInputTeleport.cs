@@ -9,7 +9,7 @@ public class ControllerInputTeleport : MonoBehaviour
 
     public GameObject cameraRig;
 
-    private bool canTeleport;
+    public bool canTeleport;
 
 
     void Awake()
