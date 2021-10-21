@@ -52,8 +52,9 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if((other.gameObject.CompareTag("VR") || other.gameObject.CompareTag("KMS")) && !other.gameObject.GetComponent<ShieldBehaviour>())
         {
-                photonView.RPC("AddInside", RpcTarget.AllViaServer, other.gameObject.GetPhotonView().ViewID);
-                Debug.Log("ADDED : " + other.name);   
+            PhotonView pv = other.gameObject.GetComponentInParent<PhotonView>();
+            photonView.RPC("AddInside", RpcTarget.AllViaServer, pv.gameObject.GetPhotonView().ViewID);
+            Debug.Log("ADDED : " + other.name);   
         }
         
         
@@ -63,7 +64,8 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if ((other.gameObject.CompareTag("VR") || other.gameObject.CompareTag("KMS")) && !other.gameObject.GetComponent<ShieldBehaviour>())
         {
-            photonView.RPC("RemoveInside", RpcTarget.AllViaServer, other.gameObject.GetPhotonView().ViewID);
+            PhotonView pv = other.gameObject.GetComponentInParent<PhotonView>();
+            photonView.RPC("RemoveInside", RpcTarget.AllViaServer, pv.gameObject.GetPhotonView().ViewID);
             Debug.Log("REMOVED : " + other.name);
         }
     }
@@ -125,14 +127,14 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     [PunRPC]
     private void AddInside(int id)
     {
-        Collider coll = PhotonView.Find(id).GetComponent<Collider>();
-        inside.Add(coll);
+        PlayerBehaviour pb = PhotonView.Find(id).GetComponentInChildren<PlayerBehaviour>();
+        inside.Add(pb.gameObject.GetComponent<Collider>());
     }
 
     [PunRPC] 
     private void RemoveInside(int id)
     {
-        Collider coll = PhotonView.Find(id).GetComponent<Collider>();
-        inside.Remove(coll);
+        PlayerBehaviour pb = PhotonView.Find(id).GetComponentInChildren<PlayerBehaviour>();
+        inside.Remove(pb.gameObject.GetComponent<Collider>());
     }
 }
