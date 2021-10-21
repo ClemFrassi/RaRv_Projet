@@ -43,7 +43,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         {
             gameObject.GetComponent<SphereCollider>().enabled = true;
             photonView.RPC("Particle", RpcTarget.AllViaServer);
-            photonView.RPC("Explosion", RpcTarget.AllViaServer);
             ready = false;    
         }
     }
@@ -74,6 +73,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     private void Explosion(PhotonMessageInfo info)
     {
         Debug.Log("EXPLOSIION");
+        Debug.Log(inside.Count);
         foreach (Collider coll in inside)
         {
             Debug.Log("NOM : " + coll.gameObject.name);
@@ -129,6 +129,10 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         PlayerBehaviour pb = PhotonView.Find(id).GetComponentInChildren<PlayerBehaviour>();
         inside.Add(pb.gameObject.GetComponent<Collider>());
+        foreach (Collider coll in inside)
+        {
+            Debug.Log(coll.name);
+        }
     }
 
     [PunRPC] 
@@ -136,5 +140,15 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         PlayerBehaviour pb = PhotonView.Find(id).GetComponentInChildren<PlayerBehaviour>();
         inside.Remove(pb.gameObject.GetComponent<Collider>());
+        foreach (Collider coll in inside)
+        {
+            Debug.Log(coll.name);
+        }
+    }
+
+    IEnumerator ExplodeDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        photonView.RPC("Explosion", RpcTarget.AllViaServer);
     }
 }
