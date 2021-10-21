@@ -48,6 +48,25 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        if (!isDead)
+        {
+            int i = 0;
+            foreach (GameObject GO in VRGO)
+            {
+                if ((i == 0 && !photonView.IsMine) || i > 0)
+                {
+                    GO.SetActive(true);
+                }
+                i++;
+            }
+        }
+        else
+        {
+            foreach (GameObject GO in VRGO)
+            {
+                GO.SetActive(false);
+            }
+        }
     }
 
     public void HitByCharge()
@@ -134,6 +153,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(Life);
+            stream.SendNext(isDead);
             if (gameObject.tag == "KMS")
             {
                 stream.SendNext(animator.GetFloat("x_direction"));
@@ -143,6 +163,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             Life = (int)stream.ReceiveNext();
+            isDead = (bool)stream.ReceiveNext();
             if (gameObject.tag == "KMS")
             {
                 animator.SetFloat("x_direction", (float)stream.ReceiveNext());
@@ -188,21 +209,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         isDead = true;
         BlackScreen.SetActive(true);
-        foreach(GameObject GO in VRGO)
-        {
-            GO.SetActive(false);
-        }
         yield return new WaitForSeconds(5);
-        int i = 0;
-        foreach (GameObject GO in VRGO)
-        {
-            GO.SetActive(true);
-            if ((i == 0 && !photonView.IsMine) || i > 0)
-            {
-                GO.SetActive(true);
-            }
-            i++;
-        }
         BlackScreen.SetActive(false);
         isDead = false;
         Respawn();
