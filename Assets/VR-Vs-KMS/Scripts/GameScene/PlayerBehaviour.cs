@@ -190,39 +190,24 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         isDead = true;
         BlackScreen.SetActive(true);
-        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetComponentInParent<PhotonView>().gameObject.GetPhotonView().ViewID, isDead);
+        foreach (GameObject GO in VRGO)
+        {
+            GO.SetActive(false);
+        }
+        Scientific.transform.position = new Vector3(-1000, -1000, -1000);
         yield return new WaitForSeconds(5);
         BlackScreen.SetActive(false);
         isDead = false;
-        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetComponentInParent<PhotonView>().gameObject.GetPhotonView().ViewID, isDead);
+        int i = 0;
+        foreach (GameObject GO in VRGO)
+        {
+            if ((i == 0 && !photonView.IsMine) || i > 0)
+            {
+                GO.SetActive(true);
+            }
+            i++;
+        }
         Respawn();
-    }
-
-    [PunRPC]
-    public void KillVR(int id, bool isKilled, PhotonMessageInfo info)
-    {
-        Debug.Log("Virus Clément Killed");
-        GameObject VR = PhotonView.Find(id).gameObject;
-        List<GameObject> GOs = VR.GetComponent<PlayerBehaviour>().VRGO;
-        if (isKilled)
-        {
-            foreach (GameObject GO in GOs)
-            {
-                GO.SetActive(false);
-            }
-        }
-        else
-        {
-            int i = 0;
-            foreach (GameObject GO in GOs)
-            {
-                if ((i == 0 && !photonView.IsMine) || i > 0)
-                {
-                    GO.SetActive(true);
-                }
-                i++;
-            }
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
