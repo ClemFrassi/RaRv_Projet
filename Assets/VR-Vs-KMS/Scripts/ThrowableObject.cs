@@ -51,11 +51,13 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     public void OnTriggerEnter(Collider other)
     {
         inside.Add(other);
+        Debug.Log("ADDED : " + other.name);
     }
 
     public void OnTriggerExit(Collider other)
     {
         inside.Remove(other);
+        Debug.Log("REMOVED : " + other.name);
     }
 
 
@@ -78,10 +80,11 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         foreach (Collider coll in inside)
         {
-            if (coll.gameObject.GetComponentInChildren<PlayerBehaviour>())
+            if (coll.gameObject.CompareTag("VR"))
             {
                 coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
-            } else if (coll.gameObject.GetComponent<PlayerBehaviour>())
+
+            } else if (coll.gameObject.CompareTag("KMS"))
             {
                 coll.GetComponent<PlayerBehaviour>().HitByCharge();
             }

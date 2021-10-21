@@ -17,6 +17,6 @@
     "a": 1
   },
   "NbContaminatedPlayerToVictory": 3,
-  "RadiusExplosion": 5,
+  "RadiusExplosion": 10,
   "TimeToAreaContamination": 5
 }
