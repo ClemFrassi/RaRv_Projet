@@ -103,11 +103,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (mainCam.CompareTag("VR"))
         {
+            EndGameCanvas.gameObject.SetActive(true);
             EndGameCanvas.tag = "VR";
             EndGameCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             EndGameCanvas.planeDistance = 1;
             EndGameCanvas.worldCamera = mainCam;
-            EndGameCanvas.gameObject.SetActive(true);
+            
             
 
             if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
@@ -121,8 +122,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (mainCam.CompareTag("MainCamera"))
         {
-            EndGameCanvas.tag = "KMS";
             EndGameCanvas.gameObject.SetActive(true);
+            EndGameCanvas.tag = "KMS";
             EndGameCanvas.planeDistance = 1;
 
             if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
