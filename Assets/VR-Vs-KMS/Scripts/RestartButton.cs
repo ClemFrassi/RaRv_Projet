@@ -29,7 +29,7 @@ public class RestartButton : MonoBehaviourPunCallbacks
 
     [PunRPC]
     void Restart(PhotonMessageInfo info)
-    {
+    {   
         SceneManager.LoadScene("GameScene");
     }
 }

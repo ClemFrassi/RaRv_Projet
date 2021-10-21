@@ -103,6 +103,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     private void Destroy(PhotonMessageInfo info)
     {
         gameObject.SetActive(false);
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
 }
