@@ -190,11 +190,11 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         isDead = true;
         BlackScreen.SetActive(true);
-        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
+        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetComponentInParent<PhotonView>().gameObject.GetPhotonView().ViewID, isDead);
         yield return new WaitForSeconds(5);
         BlackScreen.SetActive(false);
         isDead = false;
-        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
+        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetComponentInParent<PhotonView>().gameObject.GetPhotonView().ViewID, isDead);
         Respawn();
     }
 
