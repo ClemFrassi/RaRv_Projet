@@ -44,7 +44,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
             gameObject.GetComponent<SphereCollider>().enabled = true;
             photonView.RPC("Particle", RpcTarget.AllViaServer);
             photonView.RPC("Explosion", RpcTarget.AllViaServer);
-            //ready = false;    
+            ready = false;    
         }
     }
 
@@ -84,18 +84,20 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
             if (coll.gameObject.CompareTag("VR"))
             {
                 Debug.Log("NAME : " + coll.gameObject.name + " IN CHILDREN ");
-                if (coll.GetComponentInChildren<PlayerBehaviour>())
+                if (coll.gameObject.GetComponentInChildren<PlayerBehaviour>())
                 {
-                    coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
+                    coll.gameObject.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
                 }
                 
 
             } else if (coll.gameObject.CompareTag("KMS"))
             {
                 Debug.Log("NAME : " + coll.gameObject.name + " IN GAMEOBJECT ");
-                if (coll.GetComponent<PlayerBehaviour>())
+
+                if (coll.gameObject.GetComponent<PlayerBehaviour>())
                 {
-                    coll.GetComponent<PlayerBehaviour>().HitByCharge();
+                    Debug.Log("HAVE PLAYERBEHAVIOUR");
+                    coll.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
                 }
                 
             }

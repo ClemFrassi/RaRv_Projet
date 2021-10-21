@@ -961,12 +961,15 @@ MonoBehaviour:
   Shield: {fileID: 0}
   KMScanShoot: {fileID: 6809096322609468802}
   VRcanShoot: {fileID: 0}
+  VRcanTP: {fileID: 0}
   hit: {fileID: 5324520974812133756}
   death: {fileID: 6414011014392247806}
   respawn: {fileID: 3740522395465643166}
   gameManager: {fileID: 0}
   actualcamera: {fileID: 5374338904472629565}
   BlackScreen: {fileID: 6239806823158772472}
+  VRGO: []
+  isDead: 0
 --- !u!64 &7565182875970156321
 MeshCollider:
   m_ObjectHideFlags: 0
