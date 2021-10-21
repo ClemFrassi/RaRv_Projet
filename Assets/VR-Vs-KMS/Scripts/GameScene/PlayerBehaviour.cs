@@ -192,15 +192,16 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         BlackScreen.SetActive(true);
         photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
         yield return new WaitForSeconds(5);
-        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
         BlackScreen.SetActive(false);
         isDead = false;
+        photonView.RPC("KillVR", RpcTarget.AllViaServer, gameObject.GetPhotonView().ViewID, isDead);
         Respawn();
     }
 
     [PunRPC]
     public void KillVR(int id, bool isKilled, PhotonMessageInfo info)
     {
+        Debug.Log("Virus Clément Killed");
         GameObject VR = PhotonView.Find(id).gameObject;
         List<GameObject> GOs = VR.GetComponent<PlayerBehaviour>().VRGO;
         if (isKilled)
