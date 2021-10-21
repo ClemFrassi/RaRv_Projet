@@ -81,6 +81,9 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
             if (coll.gameObject.GetComponentInChildren<PlayerBehaviour>())
             {
                 coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
+            } else if (coll.gameObject.GetComponent<PlayerBehaviour>())
+            {
+                coll.GetComponent<PlayerBehaviour>().HitByCharge();
             }
         }
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
