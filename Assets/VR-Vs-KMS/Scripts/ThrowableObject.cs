@@ -22,6 +22,8 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         ready = false;
         exploded = false;
         inside = new List<Collider>();
+        gameObject.GetComponent<SphereCollider>().radius = GameConfig.GetInstance().RadiusExplosion;
+        gameObject.GetComponent<SphereCollider>().enabled = false;
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if(ready)
         {
-
+            gameObject.GetComponent<SphereCollider>().enabled = true;
             photonView.RPC("Particle", RpcTarget.AllViaServer);
             photonView.RPC("Explosion", RpcTarget.AllViaServer);
             ready = false;    
@@ -100,6 +102,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Destroy(PhotonMessageInfo info)
     {
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
 }
