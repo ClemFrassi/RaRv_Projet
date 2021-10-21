@@ -82,10 +82,12 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         {
             if (coll.gameObject.CompareTag("VR"))
             {
+                Debug.Log("NAME : " + coll.gameObject.name + " IN CHILDREN ");
                 coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
 
             } else if (coll.gameObject.CompareTag("KMS"))
             {
+                Debug.Log("NAME : " + coll.gameObject.name + " IN GAMEOBJECT ");
                 coll.GetComponent<PlayerBehaviour>().HitByCharge();
             }
         }
