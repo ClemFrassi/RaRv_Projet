@@ -52,8 +52,12 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if(other.gameObject.CompareTag("VR") || other.gameObject.CompareTag("KMS"))
         {
-            photonView.RPC("AddInside", RpcTarget.AllViaServer, other);
-            Debug.Log("ADDED : " + other.name);
+            if (other.gameObject.GetPhotonView())
+            {
+                photonView.RPC("AddInside", RpcTarget.AllViaServer, other.gameObject.GetPhotonView().ViewID);
+                Debug.Log("ADDED : " + other.name);
+            }
+            
         }
         
         
@@ -61,8 +65,11 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
 
     public void OnTriggerExit(Collider other)
     {
-        photonView.RPC("RemoveInside", RpcTarget.AllViaServer, other);
-        Debug.Log("REMOVED : " + other.name);
+        if (other.gameObject.GetPhotonView())
+        {
+            photonView.RPC("RemoveInside", RpcTarget.AllViaServer, other.gameObject.GetPhotonView().ViewID);
+            Debug.Log("REMOVED : " + other.name);
+        }
     }
 
     [PunRPC]
@@ -120,14 +127,16 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void AddInside(Collider coll)
+    private void AddInside(int id)
     {
+        Collider coll = PhotonView.Find(id).GetComponent<Collider>();
         inside.Add(coll);
     }
 
     [PunRPC] 
-    private void RemoveInside(Collider coll)
+    private void RemoveInside(int id)
     {
+        Collider coll = PhotonView.Find(id).GetComponent<Collider>();
         inside.Remove(coll);
     }
 }
