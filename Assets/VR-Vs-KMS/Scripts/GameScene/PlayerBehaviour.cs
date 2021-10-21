@@ -54,6 +54,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
+            Debug.Log("Hit");
             Hit();
             if (Life > 0)
             {

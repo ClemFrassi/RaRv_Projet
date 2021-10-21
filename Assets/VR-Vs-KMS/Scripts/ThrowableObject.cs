@@ -98,6 +98,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
                 {
                     Debug.Log("HAVE PLAYERBEHAVIOUR");
                     coll.gameObject.GetComponent<PlayerBehaviour>().HitByCharge();
+                    Debug.Log("HIT");
                 }
                 
             }
