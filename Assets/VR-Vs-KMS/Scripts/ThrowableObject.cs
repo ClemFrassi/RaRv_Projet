@@ -43,6 +43,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         {
             gameObject.GetComponent<SphereCollider>().enabled = true;
             photonView.RPC("Particle", RpcTarget.AllViaServer);
+            StartCoroutine(ExplodeDelay());
             ready = false;    
         }
     }
