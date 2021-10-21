@@ -15,11 +15,14 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public ShieldBehaviour Shield;
     public TPSShootController KMScanShoot;
     public ControllerInputShoot VRcanShoot;
+    public ControllerInputTeleport VRcanTP;
     public AudioSource hit;
     public AudioSource death;
     public AudioSource respawn;
     public GameManager gameManager;
     public Camera actualcamera;
+    public GameObject BlackScreen;
+    public bool isDead;
 
     void Start()
     {
@@ -36,6 +39,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         Life = GameConfig.GetInstance().LifeNumber;
         spawnPoints = new List<Transform>();
         SpawnerContainer = GameObject.Find("SpawnAreaContainer");
+        isDead = false;
         GetSpawners();
         Respawn();
     }
@@ -43,7 +47,10 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown("p"))
+        {
+            HitByCharge();
+        }
     }
 
     public void HitByCharge()
@@ -81,6 +88,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             if (gameObject.CompareTag("VR"))
             {
                 VRcanShoot.canShoot = true;
+                VRcanTP.canTeleport = true;
             }
             else if (gameObject.CompareTag("KMS"))
             {
@@ -164,13 +172,19 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator WaitForAnim()
     {
+        isDead = true;
         Scientific.GetComponent<PlayerMovements>().enabled = false;
         Scientific.GetComponent<CameraController>().enabled = false;
+        //gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        BlackScreen.SetActive(true);
         Debug.Log("CAN'T MOVE + TRIGGER ANIM");
         GetComponentInParent<Animator>().SetTrigger("triggerDead");
         yield return new WaitForSeconds(5);
         Scientific.GetComponent<PlayerMovements>().enabled = true;
         Scientific.GetComponent<CameraController>().enabled = true;
+        BlackScreen.SetActive(false);
+        //gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        isDead = false;
         Respawn();
     }
 
