@@ -43,25 +43,33 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         {
             gameObject.GetComponent<SphereCollider>().enabled = true;
             photonView.RPC("Particle", RpcTarget.AllViaServer);
-            photonView.RPC("Explosion", RpcTarget.AllViaServer, inside);
+            photonView.RPC("Explosion", RpcTarget.AllViaServer);
             ready = false;    
         }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        inside.Add(other);
+        if(other.gameObject.CompareTag("VR") || other.gameObject.CompareTag("KMS"))
+        {
+            photonView.RPC("AddInside", RpcTarget.AllViaServer, other);
+            Debug.Log("ADDED : " + other.name);
+        }
+        
+        
     }
 
     public void OnTriggerExit(Collider other)
     {
-        inside.Remove(other);
+        photonView.RPC("RemoveInside", RpcTarget.AllViaServer, other);
+        Debug.Log("REMOVED : " + other.name);
     }
 
     [PunRPC]
-    private void Explosion(List<Collider> insideList, PhotonMessageInfo info)
+    private void Explosion(PhotonMessageInfo info)
     {
-        foreach (Collider coll in insideList)
+        Debug.Log("EXPLOSIION");
+        foreach (Collider coll in inside)
         {
             Debug.Log("NOM : " + coll.gameObject.name);
             Debug.Log("TAG : " + coll.gameObject.tag);
@@ -109,5 +117,17 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         //gameObject.SetActive(false);
         Destroy(gameObject, 1f);
+    }
+
+    [PunRPC]
+    private void AddInside(Collider coll)
+    {
+        inside.Add(coll);
+    }
+
+    [PunRPC] 
+    private void RemoveInside(Collider coll)
+    {
+        inside.Remove(coll);
     }
 }
