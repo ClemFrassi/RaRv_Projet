@@ -100,40 +100,44 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void EndGame(PhotonMessageInfo info)
     {
-
-        if (mainCam.CompareTag("VR"))
+        if (photonView.IsMine)
         {
-            EndGameCanvas.gameObject.SetActive(true);
-            EndGameCanvas.tag = "VR";
-            EndGameCanvas.renderMode = RenderMode.ScreenSpaceCamera;
-            EndGameCanvas.planeDistance = 1;
-            EndGameCanvas.worldCamera = mainCam;
-            
-            
+            if (mainCam.CompareTag("VR"))
+            {
+                EndGameCanvas.gameObject.SetActive(true);
+                EndGameCanvas.tag = "VR";
+                EndGameCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+                EndGameCanvas.planeDistance = 1;
+                EndGameCanvas.worldCamera = mainCam;
 
-            if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
-            {
-                Victory();
-            } else if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
-            {
-                Defeat();
-            }
-        }
 
-        if (mainCam.CompareTag("MainCamera"))
-        {
-            EndGameCanvas.gameObject.SetActive(true);
-            EndGameCanvas.tag = "KMS";
-            EndGameCanvas.planeDistance = 1;
 
-            if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
-            {
-                Victory();
+                if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
+                {
+                    Victory();
+                }
+                else if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
+                {
+                    Defeat();
+                }
             }
-            else if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
+
+            if (mainCam.CompareTag("MainCamera"))
             {
-                Defeat();
+                EndGameCanvas.gameObject.SetActive(true);
+                EndGameCanvas.tag = "KMS";
+                EndGameCanvas.planeDistance = 1;
+
+                if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
+                {
+                    Victory();
+                }
+                else if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
+                {
+                    Defeat();
+                }
             }
+
         }
 
     }
