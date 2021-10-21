@@ -51,13 +51,11 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     public void OnTriggerEnter(Collider other)
     {
         inside.Add(other);
-        Debug.Log("ADDED : " + other.name);
     }
 
     public void OnTriggerExit(Collider other)
     {
         inside.Remove(other);
-        Debug.Log("REMOVED : " + other.name);
     }
 
 
@@ -80,15 +78,26 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         foreach (Collider coll in inside)
         {
+            Debug.Log("NOM : " + coll.gameObject.name);
+            Debug.Log("TAG : " + coll.gameObject.tag);
+
             if (coll.gameObject.CompareTag("VR"))
             {
                 Debug.Log("NAME : " + coll.gameObject.name + " IN CHILDREN ");
-                coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
+                if (coll.GetComponentInChildren<PlayerBehaviour>())
+                {
+                    coll.GetComponentInChildren<PlayerBehaviour>().HitByCharge();
+                }
+                
 
             } else if (coll.gameObject.CompareTag("KMS"))
             {
                 Debug.Log("NAME : " + coll.gameObject.name + " IN GAMEOBJECT ");
-                coll.GetComponent<PlayerBehaviour>().HitByCharge();
+                if (coll.GetComponent<PlayerBehaviour>())
+                {
+                    coll.GetComponent<PlayerBehaviour>().HitByCharge();
+                }
+                
             }
         }
         photonView.RPC("Destroy", RpcTarget.AllViaServer);
@@ -110,7 +119,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Destroy(PhotonMessageInfo info)
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         Destroy(gameObject, 1f);
     }
 }
