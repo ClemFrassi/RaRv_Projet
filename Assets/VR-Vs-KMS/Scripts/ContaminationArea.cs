@@ -90,13 +90,10 @@ namespace vr_vs_kms
 
         private void OnTriggerStay(Collider coll)
         {
-            Debug.Log("Luc");
             if ((coll.gameObject.tag == "KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR" && coll.gameObject.name == "VRCamera"))
             {
-                Debug.Log("Dylan");
                 if (coll.gameObject.GetComponent<PlayerBehaviour>().isDead)
                 {
-                    Debug.Log("Clem Exit Zone");
                     int id = playerList.IndexOf(coll.gameObject);
                     if (id == 0)
                     {
@@ -116,7 +113,6 @@ namespace vr_vs_kms
         {
             if ((coll.gameObject.tag == "KMS" && coll.gameObject.name == "Ch11") || (coll.gameObject.tag == "VR" && coll.gameObject.name == "VRCamera"))
             {
-                Debug.Log("Exit Zone");
                 int id = playerList.IndexOf(coll.gameObject);
                 if (id == 0)
                 {

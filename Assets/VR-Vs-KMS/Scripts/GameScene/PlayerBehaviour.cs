@@ -22,6 +22,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     public GameManager gameManager;
     public Camera actualcamera;
     public GameObject BlackScreen;
+    public List<GameObject> VRGO;
     public bool isDead;
 
     void Start()
@@ -47,10 +48,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("p"))
-        {
-            HitByCharge();
-        }
     }
 
     public void HitByCharge()
@@ -62,7 +59,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
             {
                 hit.Play();
             }
-            else if (Life == 0)
+            else if (Life == 0 && !isDead)
             {
                 death.Play();
                 if(gameObject.CompareTag("KMS")) {  
@@ -155,7 +152,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit()
     {
-        if (Life >= 0)
+        if (Life > 0)
         {
             Life--;
         }
@@ -175,7 +172,6 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         isDead = true;
         Scientific.GetComponent<PlayerMovements>().enabled = false;
         Scientific.GetComponent<CameraController>().enabled = false;
-        //gameObject.GetComponent<CapsuleCollider>().enabled = false;
         BlackScreen.SetActive(true);
         Debug.Log("CAN'T MOVE + TRIGGER ANIM");
         GetComponentInParent<Animator>().SetTrigger("triggerDead");
@@ -183,7 +179,24 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         Scientific.GetComponent<PlayerMovements>().enabled = true;
         Scientific.GetComponent<CameraController>().enabled = true;
         BlackScreen.SetActive(false);
-        //gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        isDead = false;
+        Respawn();
+    }
+
+    IEnumerator KillingVR()
+    {
+        isDead = true;
+        BlackScreen.SetActive(true);
+        foreach(GameObject GO in VRGO)
+        {
+            GO.SetActive(false);
+        }
+        yield return new WaitForSeconds(5);
+        foreach (GameObject GO in VRGO)
+        {
+            GO.SetActive(true);
+        }
+        BlackScreen.SetActive(false);
         isDead = false;
         Respawn();
     }
