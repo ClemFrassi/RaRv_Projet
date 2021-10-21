@@ -61,24 +61,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             
         }
 
-        victoryInt = checkAreaState;
-        CheckContamination();
+        photonView.RPC("VictoryIntContamination", RpcTarget.AllViaServer, checkAreaState);
     }
 
     public void Contamined(int id)
     {
-        switch (id) {
-
-            case 0 :
-                VRcontamination++;
-                break;
-
-            case 1:
-                KMScontamination++;
-                break;
-        }
-
-        CheckScore();
+        photonView.RPC("AddScore", RpcTarget.AllViaServer, id);
     }
 
     void CheckScore()
@@ -100,8 +88,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void EndGame(PhotonMessageInfo info)
     {
-        if (photonView.IsMine)
-        {
             if (mainCam.CompareTag("VR"))
             {
                 EndGameCanvas.gameObject.SetActive(true);
@@ -137,9 +123,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Defeat();
                 }
             }
-
-        }
-
     }
 
     void Victory()
@@ -155,5 +138,30 @@ public class GameManager : MonoBehaviourPunCallbacks
         EndText.text = "DEFEAT";
         ColoredBackground.color = Color.red;
         Cursor.visible = true;
+    }
+
+    [PunRPC]
+    void AddScore(int id, PhotonMessageInfo info)
+    {
+        switch (id)
+        {
+
+            case 0:
+                VRcontamination++;
+                break;
+
+            case 1:
+                KMScontamination++;
+                break;
+        }
+
+        CheckScore();
+    }
+
+    [PunRPC]
+    void VictoryIntContamination(int id)
+    {
+        victoryInt = id;
+        CheckContamination();
     }
 }
