@@ -68,7 +68,7 @@ public class PlayerBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else if (gameObject.CompareTag("VR"))
                 {
-                    Respawn();
+                    StartCoroutine(KillingVR());
                     gameManager.Contamined(1);
                 }
 
