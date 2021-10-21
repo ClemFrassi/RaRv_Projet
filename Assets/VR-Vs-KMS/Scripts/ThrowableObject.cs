@@ -58,21 +58,6 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         inside.Remove(other);
     }
 
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!explosive)
-        {
-            return;
-        }
-
-        if (other.gameObject.GetComponent<PlayerBehaviour>())
-        {
-            
-        } 
-
-    }
-
     [PunRPC]
     private void Explosion(List<Collider> insideList, PhotonMessageInfo info)
     {
