@@ -32,6 +32,7 @@ namespace vr_vs_kms
         private int remainingGrenades;
         public float inTimer = 0f;
         private CullingGroup cullGroup;
+        public int state;
 
         void Start()
         {
@@ -133,16 +134,19 @@ namespace vr_vs_kms
         public void BelongsToNobody()
         {
             ColorParticle(pSystem, nobody.mainColor, nobody.secondColor);
+            state = 0;
         }
 
         public void BelongsToVirus()
         {
             ColorParticle(pSystem, virus.mainColor, virus.secondColor);
+            state = 1;
         }
 
         public void BelongsToScientists()
         {
             ColorParticle(pSystem, scientist.mainColor, scientist.secondColor);
+            state = 2;
         }
 
         void OnDestroy()

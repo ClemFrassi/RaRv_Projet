@@ -10,7 +10,7 @@ public class RestartButton : MonoBehaviourPunCallbacks
     public GameObject Canvas;
     void Start()
     {
-        
+        Canvas.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

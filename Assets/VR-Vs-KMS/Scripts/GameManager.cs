@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using vr_vs_kms;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -15,15 +16,53 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Text EndText;
     public Camera mainCam;
 
+    private int checkAreaState;
+    private int victoryInt;
+
+    public List<ContaminationArea> listOfArea;
+
+    void Awake()
+    {
+        
+        listOfArea = new List<ContaminationArea>();
+    }
+
     void Start()
     {
-        //remplir la liste des zone de contamination
+        EndGameCanvas.gameObject.SetActive(false);
+
+        foreach (ContaminationArea area in AreaContainer.GetComponentsInChildren<ContaminationArea>() )
+        {
+            listOfArea.Add(area);
+        }
+        checkAreaState = 3;
     }
+
 
     // Update is called once per frame
     void Update()
     {
         
+        foreach (ContaminationArea area in listOfArea)
+        {
+            if (checkAreaState == 3)
+            {
+                checkAreaState = area.state;
+            }
+
+            if (checkAreaState != 3)
+            {
+                if (area.state != checkAreaState || area.state == 0)
+                {
+                    checkAreaState = 3;
+                    return; 
+                }
+            }
+            
+        }
+
+        victoryInt = checkAreaState;
+        CheckContamination();
     }
 
     public void Contamined(int id)
@@ -52,12 +91,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void CheckContamination()
     {
-       //check les zones
+       if (victoryInt == 1 || victoryInt == 2)
+        {
+            photonView.RPC("EndGame", RpcTarget.AllViaServer);
+        }
     }
 
     [PunRPC]
     void EndGame(PhotonMessageInfo info)
     {
+
         if (mainCam.CompareTag("VR"))
         {
             EndGameCanvas.tag = "VR";
@@ -65,11 +108,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             EndGameCanvas.planeDistance = 1;
             EndGameCanvas.worldCamera = mainCam;
             EndGameCanvas.gameObject.SetActive(true);
+            
 
-            if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
+            if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
             {
                 Victory();
-            } else if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée par KMS*/)
+            } else if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
             {
                 Defeat();
             }
@@ -81,11 +125,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             EndGameCanvas.gameObject.SetActive(true);
             EndGameCanvas.planeDistance = 1;
 
-            if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée */)
+            if (KMScontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 2)
             {
                 Victory();
             }
-            else if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory /* || zone toute capturée par KMS*/)
+            else if (VRcontamination == GameConfig.GetInstance().NbContaminatedPlayerToVictory || victoryInt == 1)
             {
                 Defeat();
             }
@@ -95,10 +139,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Victory()
     {
-       
         EndText.text = "VICTORY";
         ColoredBackground.color = Color.green;
-
+        Cursor.visible = true;
     }
 
     void Defeat()
@@ -106,5 +149,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         EndText.text = "DEFEAT";
         ColoredBackground.color = Color.red;
+        Cursor.visible = true;
     }
 }
