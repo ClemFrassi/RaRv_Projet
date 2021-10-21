@@ -43,7 +43,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
         {
             gameObject.GetComponent<SphereCollider>().enabled = true;
             photonView.RPC("Particle", RpcTarget.AllViaServer);
-            photonView.RPC("Explosion", RpcTarget.AllViaServer);
+            photonView.RPC("Explosion", RpcTarget.AllViaServer, inside);
             ready = false;    
         }
     }
@@ -74,9 +74,9 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void Explosion(PhotonMessageInfo info)
+    private void Explosion(List<Collider> insideList, PhotonMessageInfo info)
     {
-        foreach (Collider coll in inside)
+        foreach (Collider coll in insideList)
         {
             Debug.Log("NOM : " + coll.gameObject.name);
             Debug.Log("TAG : " + coll.gameObject.tag);
