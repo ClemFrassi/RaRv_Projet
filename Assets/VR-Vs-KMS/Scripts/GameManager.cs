@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public RawImage ColoredBackground;
     public Text EndText;
     public Camera mainCam;
+    public bool alreadyWin;
 
     private int checkAreaState;
     private int victoryInt;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        alreadyWin = false;
         EndGameCanvas.gameObject.SetActive(false);
 
         foreach (ContaminationArea area in AreaContainer.GetComponentsInChildren<ContaminationArea>() )
@@ -61,7 +63,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             
         }
 
-        photonView.RPC("VictoryIntContamination", RpcTarget.AllViaServer, checkAreaState);
+        if (!alreadyWin)
+        {
+            photonView.RPC("VictoryIntContamination", RpcTarget.AllViaServer, checkAreaState);
+            alreadyWin = true;
+        }
+        
     }
 
     public void Contamined(int id)
