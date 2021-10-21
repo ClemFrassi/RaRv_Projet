@@ -52,7 +52,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if((other.gameObject.CompareTag("VR") || other.gameObject.CompareTag("KMS")) && !other.gameObject.GetComponent<ShieldBehaviour>())
         {
-                photonView.RPC("AddInside", RpcTarget.AllViaServer, other.GetInstanceID());
+                photonView.RPC("AddInside", RpcTarget.AllViaServer, other.gameObject.GetPhotonView().ViewID);
                 Debug.Log("ADDED : " + other.name);   
         }
         
@@ -63,7 +63,7 @@ public class ThrowableObject : MonoBehaviourPunCallbacks
     {
         if ((other.gameObject.CompareTag("VR") || other.gameObject.CompareTag("KMS")) && !other.gameObject.GetComponent<ShieldBehaviour>())
         {
-            photonView.RPC("RemoveInside", RpcTarget.AllViaServer, other.GetInstanceID());
+            photonView.RPC("RemoveInside", RpcTarget.AllViaServer, other.gameObject.GetPhotonView().ViewID);
             Debug.Log("REMOVED : " + other.name);
         }
     }
